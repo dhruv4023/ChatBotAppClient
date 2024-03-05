@@ -31,7 +31,7 @@ export const register = async (values) => {
 };
 
 // Function to log in a user
-export const login = async ({ values, dispatch, setLogin, navigate }) => {
+export const login = async ({ values, dispatch, navigate }) => {
 
   try {
 

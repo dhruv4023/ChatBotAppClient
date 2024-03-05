@@ -1,44 +1,44 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import WidgetsOnPage from '../../Components/WidgetsOnPage'
-import Loading from '../../Components/Loading/Loading'
 import ChatBox from './Widgets/ChatBox'
+import HistoryWidget from './Widgets/HistoryWidget'
 import { useSelector } from 'react-redux'
-import { getUser } from '../ProfilePage/User.api'
-import FlexBetween from '../../Components/FlexBetween'
-import { IconButton } from '@mui/material'
-import { DeleteForever } from '@mui/icons-material'
+import { fetchOneChatData } from './API/chats.api'
 
 const RenderChat = () => {
-  const { chatId } = useParams()
+  const { collectionName } = useParams()
+  const chats = useSelector(s => s.chats)
   const token = useSelector(s => s.token)
-  const user = useSelector(s => s.user)
-  const navigate = useNavigate()
-  const [socket, setSocket] = useState()
-  const [chatData, setChatData] = useState()
-
-  // useEffect(() => {
-  //   const socket = io(process.env.REACT_APP_WS) // Connect to the server
-
-  //   socket.auth = { token, chatRoomId: CID }
-
-  //   // Log a message when the connection is established
-  //   socket.on('connect', () => {
-  //     console.log('Connected to server')
-  //     setSocket(socket)
-  //   })
-
-  //   // Clean up the socket connection when the component unmounts
-  //   return () => {
-  //     socket.disconnect()
-  //   }
-  // }, [])
+  const [chatsData, setChatsData] = useState(
+    chats?.filter(f => f.collectionName === collectionName)[0]
+  )
+  useEffect(() => {
+    !chats &&
+      fetchOneChatData({ token, collectionName }).then(d => {
+        if (typeof d === 'string') alert(d)
+        else {
+          setChatsData(d)
+        }
+      })
+  }, [chats, collectionName, token])
 
   return (
     <>
       <>
-        <WidgetsOnPage title={chatId}
-         rightComponent={<></>} />
+        <WidgetsOnPage
+          title={chatsData?.title}
+          leftComponent={
+            <>
+              <HistoryWidget />
+            </>
+          }
+          rightComponent={
+            <>
+              <ChatBox collectionName={collectionName} />
+            </>
+          }
+        />
       </>
     </>
   )

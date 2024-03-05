@@ -133,13 +133,19 @@ export const MyTextField = ({
   )
 }
 
-export const MyBtn = ({ onclickHandle, fullwidth = true, label = 'x' }) => {
+export const MyBtn = ({
+  onclickHandle,
+  disabled = false,
+  fullwidth = true,
+  label = 'x'
+}) => {
   const theme = useTheme()
   return (
     <Button
       fullWidth={fullwidth}
       type='submit'
       onClick={onclickHandle}
+      disabled={disabled}
       sx={{
         m: '1.2rem 0',
         p: '1rem',

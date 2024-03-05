@@ -83,7 +83,7 @@ const Form = ({ pgType, editProfile, user }) => {
     if (editProfile) values['_id'] = true
 
     if (isLogin) {
-      await login({values, dispatch, setLogin, navigate}) // Handle login
+      await login({values, dispatch, navigate}) // Handle login
     } else if (userNames?.includes(values.username)) {
       alert('Please select a unique username.')
     } else if (editProfile && values.email === user.email) {

@@ -3,6 +3,7 @@ const initialState = {
   mode: "dark",
   user: null,
   token: null,
+  chats: null
 };
 
 export const authState = createSlice({
@@ -11,6 +12,9 @@ export const authState = createSlice({
   reducers: {
     setMode: (state) => {
       state.mode = state.mode === "light" ? "dark" : "light";
+    },
+    setChats: (state, action) => {
+      state.chats = action.payload.chats;
     },
     setLogin: (state, action) => {
       state.user = action.payload.user;
@@ -27,6 +31,7 @@ export const authState = createSlice({
 export const {
   setMode,
   setLogin,
+  setChats,
   setLogout
 } = authState.actions;
 

@@ -27,15 +27,13 @@ export const formatTimestamp = (timeStamp) => {
     time,
   };
 };
-
+ 
 
 export const getDataFromResponse = async (response) => {
   const data = await response.json();
-
+console.log(data)
   if (data.success && data?.data)
     return data.data;
   else
-    alert(data.message)
-
-  return null;
+    return data.message;
 }

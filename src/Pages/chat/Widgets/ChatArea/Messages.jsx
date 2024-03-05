@@ -1,23 +1,20 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
-import { useSelector } from 'react-redux'
 import FlexBetween from '../../../../Components/FlexBetween'
 import { useTheme } from '@emotion/react'
-export default function Messages ({ msgLst }) {
-  const user = useSelector(s => s.user)
-
+import MarkdownComponent from '../../../../Components/MarkdownComponent'
+export default function Messages ({ msgLst, loading }) {
   const { palette } = useTheme()
   return (
     <>
       {msgLst.map((m, i) => (
         <Box key={i}>
-          {m.sender === user?._id ? (
+          {m['question'] ? (
             <FlexBetween>
               <Box />
               <MessageContent
-                msg={m}
+                msg={m['question']}
                 style={{
-                  color: palette.primary.dark,
                   background: palette.neutral.light
                 }}
               />
@@ -25,8 +22,9 @@ export default function Messages ({ msgLst }) {
           ) : (
             <FlexBetween>
               <MessageContent
-                msg={m}
+                msg={m['answer']}
                 style={{
+                  color: palette.primary.dark,
                   background: palette.neutral.light
                 }}
               />
@@ -34,6 +32,16 @@ export default function Messages ({ msgLst }) {
           )}
         </Box>
       ))}
+      {loading && (
+        <FlexBetween>
+          <MessageContent
+            msg={'Typing...'}
+            style={{
+              background: palette.neutral.light
+            }}
+          />
+        </FlexBetween>
+      )}
     </>
   )
 }
@@ -47,7 +55,8 @@ const MessageContent = ({ msg, style }) => {
       margin={'0.2rem'}
       maxWidth={'70%'}
     >
-      {msg.content}
+      {/* <MarkdownComponent markdownContent={msg}/> */}
+      {msg}
     </Typography>
   )
 }
