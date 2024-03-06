@@ -5,30 +5,38 @@ import MyTitle from '../../Components/MyCompoenents/MyTitle'
 import FlexBetween from '../../Components/FlexBetween'
 import { Box, Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { fetchAllChatsData } from './homepage.api.js'
+import { fetchAllChatsData } from './homepage.api'
 import { useDispatch, useSelector } from 'react-redux'
-import Loading from '../../Components/Loading/Loading.jsx'
-import { setChats } from '../../state/index.js'
-import MyLogin from '../../Components/MyCompoenents/MyLogin.jsx'
+import Loading from '../../Components/Loading/Loading'
+import { setChats } from '../../state'
+import MyLogin from '../../Components/MyCompoenents/MyLogin'
+
 const ChatButtonsWidget = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const token = useSelector(s => s.token)
-  const [chats, setChatsData] = useState(useSelector(s => s.chats))
+  const token = useSelector(state => state.token)
+  const [chats, setChatsData] = useState(useSelector(state => state.chats))
   const [page, setPage] = useState(1)
 
   useEffect(() => {
-    token
-      ? !chats &&
-        fetchAllChatsData({ token, page }).then(d => {
-          if (false === d.success) setChatsData(d.success)
-          else {
-            setChatsData(d)
-            dispatch(setChats({ chats: d }))
+    const fetchData = async () => {
+      try {
+        if (token && !chats) {
+          const data = await fetchAllChatsData({ token, page })
+          if (data.success) {
+            setChatsData(data)
+            dispatch(setChats({ chats: data }))
+          } else {
+            setChatsData(false)
           }
-        })
-      : setChatsData(false)
-  }, [chats])
+        }
+      } catch (error) {
+        console.error('Error fetching chat data:', error)
+        setChatsData(false)
+      }
+    }
+    fetchData()
+  }, [chats, dispatch, page, token])
 
   return (
     <WidgetWrapper>
@@ -45,19 +53,19 @@ const ChatButtonsWidget = () => {
         {chats ? (
           <>
             <Button onClick={() => navigate('/chat-with-pdf')}>
-              Chat with your pdfs
+              Chat with your PDFs
             </Button>
-            {chats.page_data.map(m => (
+            {chats.page_data.map(chat => (
               <Button
-                key={m.collectionName}
-                onClick={() => navigate(`/chat/${m.collectionName}`)}
+                key={chat.collectionName}
+                onClick={() => navigate(`/chat/${chat.collectionName}`)}
               >
-                {m.title}
+                {chat.title}
               </Button>
             ))}
           </>
         ) : chats === false ? (
-          <MyLogin txt={'login to access chats'} />
+          <MyLogin txt={'Login to access chats'} />
         ) : (
           <Loading />
         )}

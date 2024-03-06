@@ -12,8 +12,8 @@ const ChatBox = ({ collectionName }) => {
   ])
 
   useEffect(() => {
-    if (msgContainerRef.current) {
-      const container = msgContainerRef.current
+    const container = msgContainerRef.current
+    if (container) {
       container.scrollTop = container.scrollHeight - container.clientHeight
       const observer = new MutationObserver(() => {
         container.scrollTop = container.scrollHeight - container.clientHeight
@@ -23,6 +23,10 @@ const ChatBox = ({ collectionName }) => {
         childList: true,
         subtree: true
       })
+
+      return () => {
+        observer.disconnect() // Cleanup observer when component unmounts
+      }
     }
   }, [collectionName, loading])
 

@@ -16,20 +16,26 @@ const UploadDocuments = ({ setIsChainCreated }) => {
     files: []
   })
   const [loading, setLoading] = useState(false)
+
   const handlePdfFiles = acceptedFiles => {
     setValues({ ...values, files: acceptedFiles })
   }
 
-  const token = useSelector(s => s.token)
-  const handleSubmit = e => {
+  const token = useSelector(state => state.token)
+
+  const handleSubmit = async e => {
     e.preventDefault()
     setLoading(true)
-    createTmpChain({ token, values })
-      .then(d => {
-        // console.log(d.success, d)
-        setIsChainCreated(d.success)
-      })
-      .finally(() => setLoading(false))
+
+    try {
+      await createTmpChain({ token, values })
+      setIsChainCreated(true)
+    } catch (error) {
+      console.error('Error uploading documents:', error)
+      alert('Failed to upload documents.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -52,7 +58,7 @@ const UploadDocuments = ({ setIsChainCreated }) => {
             >
               <input {...getInputProps()} />
               {values?.files.length === 0 ? (
-                <p>Add PDF Files Here</p>
+                <Typography>Add PDF Files Here</Typography>
               ) : (
                 values.files.map((file, index) => (
                   <FlexBetween key={index}>

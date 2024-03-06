@@ -3,33 +3,24 @@ import React from 'react'
 import FlexBetween from '../../../../Components/FlexBetween'
 import { useTheme } from '@emotion/react'
 import MarkdownComponent from '../../../../Components/MarkdownComponent'
+
 export default function Messages ({ msgLst, loading }) {
   const { palette } = useTheme()
+
   return (
     <>
       {msgLst.map((m, i) => (
         <Box key={i}>
-          {m['question'] ? (
-            <FlexBetween>
-              <Box />
-              <MessageContent
-                msg={m['question']}
-                style={{
-                  background: palette.neutral.light
-                }}
-              />
-            </FlexBetween>
-          ) : (
-            <FlexBetween>
-              <MessageContent
-                msg={m['answer']}
-                style={{
-                  color: palette.primary.dark,
-                  background: palette.neutral.light
-                }}
-              />
-            </FlexBetween>
-          )}
+          <FlexBetween>
+            {m.question && <Box />}
+            <MessageContent
+              msg={m.question || m.answer} // Simplified condition
+              style={{
+                color: m.question ? undefined : palette.primary.dark, // Set color only for answers
+                background: palette.neutral.light
+              }}
+            />
+          </FlexBetween>
         </Box>
       ))}
       {loading && (

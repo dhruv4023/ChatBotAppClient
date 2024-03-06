@@ -1,7 +1,7 @@
 import { getDataFromResponse } from "../../state/globalFunctions";
 
 export const fetchAllChatsData = async ({ token, page = 1, limit = 10 }) => {
-    
+
     try {
         const requestOptions = {
             method: "GET",

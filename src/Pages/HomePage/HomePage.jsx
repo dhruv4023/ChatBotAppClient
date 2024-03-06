@@ -3,19 +3,20 @@ import WidgetsOnPage from '../../Components/WidgetsOnPage'
 import { Typography } from '@mui/material'
 import { useTheme } from '@emotion/react'
 import ChatButtonsWidget from './ChatButtonsWidget'
+
 const HomePage = () => {
   return (
     <WidgetsOnPage
       title={'Chat with PDFs Application'}
       leftComponent={<ChatButtonsWidget />}
-      rightComponent={<RightBar />}
+      rightComponent={<RightBarContent />}
     />
   )
 }
 
 export default HomePage
 
-const RightBar = () => {
+const RightBarContent = () => {
   const { palette } = useTheme()
 
   return (

@@ -8,27 +8,38 @@ import { useSelector } from 'react-redux'
 import { Box, Button, Divider } from '@mui/material'
 import Loading from '../../../Components/Loading/Loading'
 import Pagination from '../../../Components/Pagination'
-import MarkdownComponent from '../../../Components/MarkdownComponent'
+// import MarkdownComponent from '../../../Components/MarkdownComponent'; // MarkdownComponent seems unused
 
 const HistoryWidget = () => {
-  const token = useSelector(s => s.token)
+  const token = useSelector(state => state.token)
   const [historyData, setHistory] = useState(null)
   const [page, setPage] = useState(1)
+
   useEffect(() => {
-    getChatHistory({ page, limit: 5, token }).then(data => {
-      setHistory(data)
-    })
+    const fetchHistory = async () => {
+      try {
+        const data = await getChatHistory({ page, limit: 5, token })
+        setHistory(data)
+      } catch (error) {
+        console.error('Error fetching chat history:', error)
+      }
+    }
+
+    fetchHistory()
   }, [page, token])
 
-  const handleDelete = questionId => {
-    deleteQuestion({ questionId, token }).then(() => {
+  const handleDelete = async questionId => {
+    try {
+      await deleteQuestion({ questionId, token })
       setHistory(prevHistoryData => ({
         ...prevHistoryData,
         page_data: prevHistoryData.page_data.filter(
           item => item._id !== questionId
         )
       }))
-    })
+    } catch (error) {
+      console.error('Error deleting question:', error)
+    }
   }
 
   return (
@@ -47,7 +58,7 @@ const HistoryWidget = () => {
           <Pagination
             page={page}
             setPage={setPage}
-            metadata={historyData?.page_information}
+            metadata={historyData.page_information}
           />
         )}
         <Box width='100%'>

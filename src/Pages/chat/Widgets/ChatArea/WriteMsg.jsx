@@ -1,36 +1,50 @@
 import { TextField } from '@mui/material'
 import React, { useState } from 'react'
-import FlexBetween from '../../../../Components/FlexBetween'
-import { sendQuetion } from '../../API/chatbot.api'
 import { useSelector } from 'react-redux'
 import MyButton from '../../../../Components/MyCompoenents/MyButton'
+import FlexBetween from '../../../../Components/FlexBetween'
+import { sendQuestion } from '../../API/chatbot.api'
 
-const WriteMsg = ({ collectionName, setMessages, msgList, setLoading, loading }) => {
+const WriteMsg = ({
+  collectionName,
+  setMessages,
+  msgList,
+  setLoading,
+  loading
+}) => {
   const [val, setVal] = useState('')
-  const token = useSelector(s => s.token)
-  const handleSendMess = e => {
+  const token = useSelector(state => state.token)
+
+  const handleSendMess = async e => {
     e.preventDefault()
-    setVal('')
     setLoading(true)
-    msgList.push({ question: val })
-    setMessages(msgList)
-    const startTime = performance.now()
-    sendQuetion({ question: val, token, collectionName })
-      .then(d => {
-        msgList.push({ answer: String(d) })
-        setMessages(msgList)
+
+    try {
+      const startTime = performance.now()
+      msgList.push({ question: val })
+      setMessages([...msgList])
+
+      const response = await sendQuestion({
+        question: val,
+        token,
+        collectionName
       })
-      .finally(() => {
-        const endTime = performance.now()
-        const elapsedTime = endTime - startTime
-        msgList.push({
-          answer:
-            'Taken: ' + String(elapsedTime.toFixed(2) / 1000) + ' seconds'
-        })
-        setMessages(msgList)
-        setLoading(false)
-      })
+      msgList.push({ answer: String(response) })
+      const endTime = performance.now()
+      const elapsedTime = (endTime - startTime) / 1000
+      msgList.push({ answer: `Taken: ${elapsedTime.toFixed(2)} seconds` })
+
+      setMessages(msgList)
+    } catch (error) {
+      console.error('Error sending question:', error)
+      alert('Failed to send question.')
+    } finally {
+      setLoading(false)
+    }
+
+    setVal('')
   }
+
   return (
     <form onSubmit={handleSendMess} style={{ width: '100%' }}>
       <FlexBetween width={'100%'}>

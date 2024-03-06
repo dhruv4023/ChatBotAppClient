@@ -6,24 +6,19 @@ import UploadDocuments from './Widgets/UploadDocuments'
 
 const ChatWithPdf = () => {
   const [isChainCreated, setIsChainCreated] = useState(false)
+
   useEffect(() => {}, [isChainCreated])
 
   return (
     <WidgetsOnPage
-      title={'Chat With Your PDFs'}
-      leftComponent={
-        <>
-          <HistoryWidget />
-        </>
-      }
+      title='Chat With Your PDFs'
+      leftComponent={<HistoryWidget />}
       rightComponent={
-        <>
-          {isChainCreated ? (
-            <ChatBox />
-          ) : (
-            <UploadDocuments setIsChainCreated={setIsChainCreated} />
-          )}
-        </>
+        isChainCreated ? (
+          <ChatBox />
+        ) : (
+          <UploadDocuments setIsChainCreated={setIsChainCreated} />
+        )
       }
     />
   )

@@ -13,9 +13,14 @@ export const getChatHistory = async ({ page, limit, token }) => {
 
     try {
         const response = await fetch(url, requestOptions);
+        if (!response.ok) {
+            throw new Error("Failed to fetch chat history"); // Throw an error for non-successful response
+        }
         return await getDataFromResponse(response);
     } catch (error) {
-        alert("Internal Server Connection error! Please try again later! Sorry for inconvenience")
+        console.error("Error fetching chat history:", error); // Log the error for debugging
+        alert("Internal Server Connection error! Please try again later! Sorry for inconvenience");
+        throw error; // Re-throw the error to handle it in the calling code
     }
 };
 
@@ -31,10 +36,14 @@ export const deleteQuestion = async ({ token, questionId }) => {
         };
 
         const response = await fetch(`${process.env.REACT_APP_REST_API}/chat/history/question/${questionId}`, requestOptions);
+        if (!response.ok) {
+            throw new Error("Failed to delete question"); // Throw an error for non-successful response
+        }
         return await getDataFromResponse(response);
 
     } catch (error) {
-        console.error(error);
+        console.error("Error deleting question:", error); // Log the error for debugging
         alert("Failed to delete question.");
+        throw error; // Re-throw the error to handle it in the calling code
     }
 };

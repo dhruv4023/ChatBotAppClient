@@ -1,4 +1,4 @@
-import { appendData, getDataFromResponse } from "../../../state/globalFunctions";
+import { getDataFromResponse } from "../../../state/globalFunctions";
 
 export const fetchOneChatData = async ({ token, collectionName }) => {
     try {
@@ -11,19 +11,21 @@ export const fetchOneChatData = async ({ token, collectionName }) => {
         };
 
         const response = await fetch(`${process.env.REACT_APP_REST_API}/chat/get/${collectionName}`, requestOptions);
+        if (!response.ok) {
+            throw new Error("Failed to fetch chat data"); // Throw an error for non-successful response
+        }
         return await getDataFromResponse(response);
     } catch (error) {
-        console.error(error);
+        console.error("Error fetching chat data:", error); // Log the error for debugging
         throw new Error("Failed to fetch data.");
     }
 };
 
 export const createTmpChain = async ({ token, values }) => {
-
     const formData = new FormData();
-   
+
     // Append files to FormData
-    values.files.forEach((file, index) => {
+    values.files.forEach((file) => {
         formData.append("files", file);
     });
 
@@ -37,8 +39,12 @@ export const createTmpChain = async ({ token, values }) => {
 
     try {
         const response = await fetch(`${process.env.REACT_APP_REST_API}/chat/bot/create/tmp/chain`, requestOptions);
+        if (!response.ok) {
+            throw new Error("Failed to create temporary chain"); // Throw an error for non-successful response
+        }
         return await getDataFromResponse(response);
     } catch (error) {
-        console.error(error);
+        console.error("Error creating temporary chain:", error); // Log the error for debugging
+        throw error; // Re-throw the error to handle it in the calling code
     }
 };

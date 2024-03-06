@@ -8,39 +8,39 @@ import { fetchOneChatData } from './API/chats.api'
 
 const RenderChat = () => {
   const { collectionName } = useParams()
-  const chats = useSelector(s => s.chats)
-  const token = useSelector(s => s.token)
-  const [chatsData, setChatsData] = useState(
-    chats?.page_data?.filter(f => f.collectionName === collectionName)[0]
-  )
+  const chats = useSelector(state => state.chats)
+  const token = useSelector(state => state.token)
+  const [chatsData, setChatsData] = useState(null) // Initialize chatsData as null
+
   useEffect(() => {
-    !chats &&
-      fetchOneChatData({ token, collectionName }).then(d => {
-        if (false === d.success) alert(d.message)
-        else {
-          setChatsData(d)
-        }
-      })
+    if (!chats) {
+      fetchOneChatData({ token, collectionName })
+        .then(data => {
+          if (!data.success) {
+            alert(data.message)
+          } else {
+            setChatsData(data)
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching chat data:', error)
+          alert('Failed to fetch chat data. Please try again later.')
+        })
+    } else {
+      // If chats already exist in state, filter chatsData based on collectionName
+      const filteredChatData = chats.page_data.find(
+        chat => chat.collectionName === collectionName
+      )
+      setChatsData(filteredChatData)
+    }
   }, [chats, collectionName, token])
 
   return (
-    <>
-      <>
-        <WidgetsOnPage
-          title={chatsData?.title}
-          leftComponent={
-            <>
-              <HistoryWidget />
-            </>
-          }
-          rightComponent={
-            <>
-              <ChatBox collectionName={collectionName} />
-            </>
-          }
-        />
-      </>
-    </>
+    <WidgetsOnPage
+      title={chatsData?.title || ''} // Provide a fallback value for title in case chatsData is null
+      leftComponent={<HistoryWidget />}
+      rightComponent={<ChatBox collectionName={collectionName} />}
+    />
   )
 }
 
