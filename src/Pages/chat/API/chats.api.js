@@ -2,12 +2,12 @@ import { getDataFromResponse } from "../../../state/globalFunctions";
 
 export const fetchOneChatData = async ({ token, collectionName }) => {
     try {
-        const myHeaders = new Headers();
-        myHeaders.append("Authorization", `Bearer ${token}`);
-
         const requestOptions = {
             method: "GET",
-            headers: myHeaders
+            headers: {
+                "Authorization": token,
+                "Content-Type": "application/json"
+            },
         };
 
         const response = await fetch(`${process.env.REACT_APP_REST_API}/chat/get/${collectionName}`, requestOptions);

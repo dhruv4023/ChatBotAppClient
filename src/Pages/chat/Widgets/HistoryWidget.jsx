@@ -33,8 +33,8 @@ const HistoryWidget = () => {
         </FlexBetween>
         <Box width={'100%'}>
           {historyData ? (
-            typeof historyData === 'string' ? (
-              <>{historyData}</>
+            false === historyData.success ? (
+              <>{historyData.message}</>
             ) : (
               historyData.page_data.map(m => (
                 <QA

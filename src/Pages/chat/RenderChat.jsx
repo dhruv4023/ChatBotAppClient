@@ -16,7 +16,7 @@ const RenderChat = () => {
   useEffect(() => {
     !chats &&
       fetchOneChatData({ token, collectionName }).then(d => {
-        if (typeof d === 'string') alert(d)
+        if (false===d.success) alert(d.message)
         else {
           setChatsData(d)
         }

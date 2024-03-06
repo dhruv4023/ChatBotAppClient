@@ -1,13 +1,14 @@
 import { getDataFromResponse } from "../../state/globalFunctions";
 
 export const fetchAllChatsData = async ({ token, page = 1, limit = 10 }) => {
+    
     try {
-        const myHeaders = new Headers();
-        myHeaders.append("Authorization", `Bearer ${token}`);
-
         const requestOptions = {
             method: "GET",
-            headers: myHeaders,
+            headers: {
+                "Authorization": token,
+                "Content-Type": "application/json"
+            },
             redirect: "follow"
         };
 

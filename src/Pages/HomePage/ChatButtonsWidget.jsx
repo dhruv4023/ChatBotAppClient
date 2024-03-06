@@ -9,6 +9,7 @@ import { fetchAllChatsData } from './homepage.api.js'
 import { useDispatch, useSelector } from 'react-redux'
 import Loading from '../../Components/Loading/Loading.jsx'
 import { setChats } from '../../state/index.js'
+import MyLogin from '../../Components/MyCompoenents/MyLogin.jsx'
 const ChatButtonsWidget = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -18,14 +19,15 @@ const ChatButtonsWidget = () => {
   useEffect(() => {
     !chats &&
       fetchAllChatsData({ token, page }).then(d => {
-        if (typeof d === 'string') alert(d)
+        console.log(d)
+        if (false===d.success) setChatsData(d.success)
         else {
           setChatsData(d)
           dispatch(setChats({ chats: d.page_data }))
         }
       })
   }, [chats])
-
+  console.log(chats)
   return (
     <WidgetWrapper>
       <MyTitle
@@ -45,13 +47,15 @@ const ChatButtonsWidget = () => {
             </Button>
             {chats.page_data.map(m => (
               <Button
-                key={m}
+                key={m.collectionName}
                 onClick={() => navigate(`/chat/${m.collectionName}`)}
               >
                 {m.title}
               </Button>
             ))}
           </>
+        ) : chats === false ? (
+          <MyLogin txt={'login to access chats'} />
         ) : (
           <Loading />
         )}

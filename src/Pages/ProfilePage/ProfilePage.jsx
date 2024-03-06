@@ -6,7 +6,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 import EditProfileWidget from './Widgets/EditProfileWidget'
 import UserWidgets from './Widgets/UserWidgets'
 import WidgetsOnPage from '../../Components/WidgetsOnPage'
-import AllChat from './Widgets/AllChat'
 import { getUser } from './User.api'
 
 // Define the ProfilePage component

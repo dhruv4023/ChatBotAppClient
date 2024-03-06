@@ -18,12 +18,12 @@ export const authState = createSlice({
     },
     setLogin: (state, action) => {
       state.user = action.payload.user;
-      state.token = action.payload.token;
+      state.token = `Bearer ${action.payload.token}`;
     },
     setLogout: (state) => {
       state.user = null;
       state.token = null;
-      state.services = [];
+      state.chats = null;
     },
   },
 });

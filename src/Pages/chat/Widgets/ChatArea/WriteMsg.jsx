@@ -25,7 +25,7 @@ const WriteMsg = ({ collectionName, setMessages, msgList, setLoading, loading })
         const elapsedTime = endTime - startTime
         msgList.push({
           answer:
-            'Taken: ' + String(elapsedTime.toFixed(2) / 1000) + ' miliseconds'
+            'Taken: ' + String(elapsedTime.toFixed(2) / 1000) + ' seconds'
         })
         setMessages(msgList)
         setLoading(false)

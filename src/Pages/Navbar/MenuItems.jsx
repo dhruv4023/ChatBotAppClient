@@ -1,18 +1,11 @@
-import {
-  DarkMode,
-  LightMode,
-  LoginRounded,
-  ContactSupport,
-  Logout
-} from '@mui/icons-material'
+import { DarkMode, LightMode, LoginRounded, Logout } from '@mui/icons-material'
 import { setMode, setLogout } from '../../state/index'
-import { IconButton, FormControl, Tooltip, Button } from '@mui/material'
+import { IconButton, Tooltip } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTheme } from '@emotion/react'
 import { useNavigate } from 'react-router-dom'
 import UserImg from '../../Components/UserImg'
-import FlexBetween from '../../Components/FlexBetween'
 
 const MenuItems = () => {
   const dispatch = useDispatch()
