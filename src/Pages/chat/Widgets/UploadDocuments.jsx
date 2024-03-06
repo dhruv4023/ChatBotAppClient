@@ -26,7 +26,7 @@ const UploadDocuments = ({ setIsChainCreated }) => {
     setLoading(true)
     createTmpChain({ token, values })
       .then(d => {
-        console.log(d.success, d)
+        // console.log(d.success, d)
         setIsChainCreated(d.success)
       })
       .finally(() => setLoading(false))

@@ -25,7 +25,7 @@ export const ProfilePage = () => {
             : navigate('/404', { state: 'Profile Not Found' })
         })
   }, [UID])
-  console.log(user)
+  // console.log(user)
   return (
     <>
       {user ? (

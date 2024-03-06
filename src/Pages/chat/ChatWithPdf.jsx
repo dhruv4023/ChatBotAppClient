@@ -7,7 +7,7 @@ import UploadDocuments from './Widgets/UploadDocuments'
 const ChatWithPdf = () => {
   const [isChainCreated, setIsChainCreated] = useState(false)
   useEffect(() => {}, [isChainCreated])
-console.log(isChainCreated)
+
   return (
     <WidgetsOnPage
       title={'Chat With Your PDFs'}

@@ -8,18 +8,18 @@ import { useSelector } from 'react-redux'
 import { Box, Button, Divider } from '@mui/material'
 import Loading from '../../../Components/Loading/Loading'
 import MarkdownComponent from '../../../Components/MarkdownComponent'
+import FlexEvenly from '../../../Components/FlexEvenly'
 
 const HistoryWidget = () => {
   const token = useSelector(s => s.token)
   const [historyData, setHistory] = useState(null)
-
+  const [page, setPage] = useState(1)
   useEffect(() => {
-    if (!historyData) {
-      getChatHistory({ page: 1, limit: 10, token }).then(data => {
-        setHistory(data)
-      })
-    }
-  }, [historyData, token])
+    getChatHistory({ page, limit: 10, token }).then(data => {
+      setHistory(data)
+      console.log(data)
+    })
+  }, [page, token])
 
   const handleDelete = questionId => {
     deleteQuestion({ questionId, token }).then(() => {
@@ -31,6 +31,8 @@ const HistoryWidget = () => {
       }))
     })
   }
+
+  // console.log(historyData)
 
   return (
     <WidgetWrapper>
@@ -44,6 +46,12 @@ const HistoryWidget = () => {
             }
           />
         </FlexBetween>
+        {historyData?.page_information && (
+          <Pagination
+            setPage={setPage}
+            metadata={historyData?.page_information}
+          />
+        )}
         <Box width='100%'>
           {historyData ? (
             historyData.success === false ? (
@@ -66,8 +74,6 @@ const HistoryWidget = () => {
   )
 }
 
-export default HistoryWidget
-
 const QA = ({ data, handleDelete }) => {
   const [showAnswer, setShowAnswer] = useState(false)
 
@@ -86,7 +92,7 @@ const QA = ({ data, handleDelete }) => {
       </FlexBetween>
       {showAnswer && (
         <>
-          <Box fullWidth>
+          <Box width={'100%'}>
             {/* <MarkdownComponent markdownContent={data.answer}/> */}
             {data.answer}
           </Box>
@@ -95,3 +101,17 @@ const QA = ({ data, handleDelete }) => {
     </>
   )
 }
+
+const Pagination = ({ metadata, setPage }) => {
+  return (
+    <FlexEvenly>
+      {Array.from({ length: metadata.last_page }, (_, index) => index + 1).map(
+        n => (
+          <Button onClick={() => setPage(n)}>{n}</Button>
+        )
+      )}
+    </FlexEvenly>
+  )
+}
+
+export default HistoryWidget
