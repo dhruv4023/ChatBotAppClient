@@ -12,12 +12,14 @@ code {
     monospace;
 }
 
-::-webkit-scrollbar{
-  width: 5px;
+::-webkit-scrollbar {
+  width: 1px;
+  height: 0px;
   border-radius: 0.5rem;
   background-color: aliceblue;
 
 }
-::-webkit-scrollbar-thumb{
+
+::-webkit-scrollbar-thumb {
   background-color: black;
 }

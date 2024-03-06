@@ -32,12 +32,12 @@ const WidgetsOnPage = ({ title, leftComponent, rightComponent }) => {
         gap="2rem"
         justifyContent="center"
       >
-        <Box flexBasis={isNonMobileScreens ? "30%" : undefined}>
+        <Box width={isNonMobileScreens ? "40vw" : "90vw"}>
           {leftComponent}
           <Box m="1rem 0" />
         </Box>
         <Box
-          flexBasis={isNonMobileScreens ? "60%" : undefined}
+          width={isNonMobileScreens ? "60vw" : "90vw"}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
           {rightComponent}

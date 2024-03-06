@@ -7,17 +7,16 @@ import { deleteQuestion, getChatHistory } from '../API/chatHistory.api'
 import { useSelector } from 'react-redux'
 import { Box, Button, Divider } from '@mui/material'
 import Loading from '../../../Components/Loading/Loading'
+import Pagination from '../../../Components/Pagination'
 import MarkdownComponent from '../../../Components/MarkdownComponent'
-import FlexEvenly from '../../../Components/FlexEvenly'
 
 const HistoryWidget = () => {
   const token = useSelector(s => s.token)
   const [historyData, setHistory] = useState(null)
   const [page, setPage] = useState(1)
   useEffect(() => {
-    getChatHistory({ page, limit: 10, token }).then(data => {
+    getChatHistory({ page, limit: 5, token }).then(data => {
       setHistory(data)
-      console.log(data)
     })
   }, [page, token])
 
@@ -32,8 +31,6 @@ const HistoryWidget = () => {
     })
   }
 
-  // console.log(historyData)
-
   return (
     <WidgetWrapper>
       <FlexBetween flexDirection='column'>
@@ -41,13 +38,14 @@ const HistoryWidget = () => {
           <MyTitle
             txt={
               <>
-                <History /> Your Previous Questions
+                <History /> Your all previous questions
               </>
             }
           />
         </FlexBetween>
         {historyData?.page_information && (
           <Pagination
+            page={page}
             setPage={setPage}
             metadata={historyData?.page_information}
           />
@@ -99,18 +97,6 @@ const QA = ({ data, handleDelete }) => {
         </>
       )}
     </>
-  )
-}
-
-const Pagination = ({ metadata, setPage }) => {
-  return (
-    <FlexEvenly>
-      {Array.from({ length: metadata.last_page }, (_, index) => index + 1).map(
-        n => (
-          <Button onClick={() => setPage(n)}>{n}</Button>
-        )
-      )}
-    </FlexEvenly>
   )
 }
 
