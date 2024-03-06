@@ -2,15 +2,14 @@ import { Box } from '@mui/system'
 
 const UserImg = ({ image, size = '60px' }) => {
   return (
-    <Box display={'flex'}>
+    <Box display='flex' justifyContent='center' alignItems='center'>
       <img
         style={{
-          margin: 'auto',
+          borderRadius: '50%',
           objectFit: 'cover',
-          borderRadius: '100%',
+          width: size,
+          height: size
         }}
-        height={size}
-        width={size}
         alt='userImage'
         src={
           image

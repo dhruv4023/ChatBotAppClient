@@ -6,6 +6,7 @@ import React from "react";
 const WidgetsOnPage = ({ title, leftComponent, rightComponent }) => {
   const theme = useTheme();
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+
   return (
     <Box>
       <Navbar />

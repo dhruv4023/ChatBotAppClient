@@ -9,7 +9,7 @@ import WidgetsOnPage from '../../Components/WidgetsOnPage'
 import { getUser } from './User.api'
 
 // Define the ProfilePage component
-export const ProfilePage = () => {
+const ProfilePage = () => {
   const { UID } = useParams()
   const admin = useSelector(state => state.user)
   const [editProf, setEditProf] = useState(false)
@@ -81,3 +81,5 @@ const RightComponents = ({ user, editProf, setEditProf }) => {
     </>
   )
 }
+
+export default ProfilePage

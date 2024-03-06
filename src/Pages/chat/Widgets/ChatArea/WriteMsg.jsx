@@ -1,9 +1,9 @@
 import { TextField } from '@mui/material'
 import React, { useState } from 'react'
-import { MyBtn } from '../../../../Components/MyComponents'
 import FlexBetween from '../../../../Components/FlexBetween'
 import { sendQuetion } from '../../API/chatbot.api'
 import { useSelector } from 'react-redux'
+import MyButton from '../../../../Components/MyCompoenents/MyButton'
 
 const WriteMsg = ({ collectionName, setMessages, msgList, setLoading, loading }) => {
   const [val, setVal] = useState('')
@@ -42,7 +42,7 @@ const WriteMsg = ({ collectionName, setMessages, msgList, setLoading, loading })
           onChange={e => setVal(e.target.value)}
           value={val}
         />
-        <MyBtn disabled={loading} fullwidth={false} label='Send' />
+        <MyButton disabled={loading} fullwidth={false} label='Send' />
       </FlexBetween>
     </form>
   )

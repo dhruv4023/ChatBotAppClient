@@ -3,7 +3,7 @@ import React from 'react'
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const navigate = useNavigate()
   const isNonMobileScreens = useMediaQuery('(min-width: 800px)')
   const theme = useTheme()
@@ -34,7 +34,7 @@ export const LoginPage = () => {
         ) : page === 'changepass' ? (
           // Display the ChangePass component if 'page' is 'changepass'.
           // <ChangePass />
-          navigate('/404', { state: "Not implemented" })
+          navigate('/404', { state: 'Not implemented' })
         ) : (
           navigate('/404', { state: null })
         )}
@@ -42,3 +42,5 @@ export const LoginPage = () => {
     </Box>
   )
 }
+
+export default LoginPage

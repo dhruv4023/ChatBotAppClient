@@ -19,9 +19,9 @@ import {
   register,
   updateProfile
 } from './LoginRegisterChangePass'
-import { SelectLocation } from '../../Components/MyComponents'
 import { CheckBox, CheckBoxOutlineBlank } from '@mui/icons-material'
 import Loading from '../../Components/Loading/Loading'
+import SelectLocation from '../../Components/MyCompoenents/SelectLocation'
 
 const Form = ({ pgType, editProfile, user }) => {
   // Initial values for registration and login

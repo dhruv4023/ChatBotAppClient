@@ -5,10 +5,10 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import WidgetWrapper from '../../../Components/WidgetWrapper'
 import FlexBetween from '../../../Components/FlexBetween'
 import { useTheme } from '@emotion/react'
-import { MyBtn } from '../../../Components/MyComponents'
 import { createTmpChain } from '../API/chats.api'
 import { useSelector } from 'react-redux'
 import Loading from '../../../Components/Loading/Loading'
+import MyButton from '../../../Components/MyCompoenents/MyButton'
 
 const UploadDocuments = ({ setIsChainCreated }) => {
   const { palette } = useTheme()
@@ -64,7 +64,7 @@ const UploadDocuments = ({ setIsChainCreated }) => {
             </Box>
           )}
         </Dropzone>
-        <MyBtn disabled={loading} label='Start chat with these files' />
+        <MyButton disabled={loading} label='Start chat with these files' />
       </form>
       {loading && <Loading />}
     </WidgetWrapper>
