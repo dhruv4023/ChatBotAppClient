@@ -27,7 +27,7 @@ export const formatTimestamp = (timeStamp) => {
     time,
   };
 };
- 
+
 
 export const getDataFromResponse = async (response) => {
   const data = await response.json();
@@ -36,5 +36,27 @@ export const getDataFromResponse = async (response) => {
     return data.data;
   else
     return data;
-  
+
+}
+
+/**
+ * Recursively appends data to a FormData object.
+ * @param {FormData} formData - The FormData object to append data to.
+ * @param {object} object - The data object to append.
+ * @param {string} parentKey - The parent key (used for nested objects).
+ */
+export const appendData = (formData, object, parentKey) => {
+  for (const key in object) {
+    if (object.hasOwnProperty(key)) {
+      const currentKey = parentKey ? `${parentKey}.${key}` : key;
+
+      // Check if the value is an object and not an instance of File.
+      if (typeof object[key] === "object" && !(object[key] instanceof File)) {
+        // Recursively append nested object data.
+        appendData(formData, object[key], currentKey);
+      } else {
+        formData.append(currentKey, object[key]);
+      }
+    }
+  }
 }

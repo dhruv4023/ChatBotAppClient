@@ -7,41 +7,53 @@ import { deleteQuestion, getChatHistory } from '../API/chatHistory.api'
 import { useSelector } from 'react-redux'
 import { Box, Button, Divider } from '@mui/material'
 import Loading from '../../../Components/Loading/Loading'
+import MarkdownComponent from '../../../Components/MarkdownComponent'
 
 const HistoryWidget = () => {
-  const [page, setPage] = useState(1)
   const token = useSelector(s => s.token)
-  const [historyData, setHistory] = useState()
+  const [historyData, setHistory] = useState(null)
+
   useEffect(() => {
-    !historyData &&
-      getChatHistory({ page, limit: 10, token }).then(d => {
-        setHistory(d)
+    if (!historyData) {
+      getChatHistory({ page: 1, limit: 10, token }).then(data => {
+        setHistory(data)
       })
-  }, [historyData, setHistory])
+    }
+  }, [historyData, token])
+
+  const handleDelete = questionId => {
+    deleteQuestion({ questionId, token }).then(() => {
+      setHistory(prevHistoryData => ({
+        ...prevHistoryData,
+        page_data: prevHistoryData.page_data.filter(
+          item => item._id !== questionId
+        )
+      }))
+    })
+  }
 
   return (
     <WidgetWrapper>
-      <FlexBetween flexDirection={'column'}>
+      <FlexBetween flexDirection='column'>
         <FlexBetween>
           <MyTitle
             txt={
               <>
-                <History /> Your Previous Quetions
+                <History /> Your Previous Questions
               </>
             }
           />
         </FlexBetween>
-        <Box width={'100%'}>
+        <Box width='100%'>
           {historyData ? (
-            false === historyData.success ? (
+            historyData.success === false ? (
               <>{historyData.message}</>
             ) : (
-              historyData.page_data.map(m => (
+              historyData.page_data.map(question => (
                 <QA
-                  key={m._id}
-                  data={m}
-                  token={token}
-                  setHistory={setHistory}
+                  key={question._id}
+                  data={question}
+                  handleDelete={handleDelete}
                 />
               ))
             )
@@ -56,28 +68,28 @@ const HistoryWidget = () => {
 
 export default HistoryWidget
 
-const QA = ({ data, token, setHistory }) => {
+const QA = ({ data, handleDelete }) => {
   const [showAnswer, setShowAnswer] = useState(false)
 
-  const toggleAnswer = () => setShowAnswer(!showAnswer)
-
-  const handleDelete = () =>
-    deleteQuestion({ questionId: data._id, token }).then(() => setHistory())
+  const toggleAnswer = () => setShowAnswer(prevShowAnswer => !prevShowAnswer)
 
   return (
     <>
+      <Divider />
       <FlexBetween>
         <Button fullWidth onClick={toggleAnswer}>
           {data.question}
         </Button>
-        <Button sx={{ color: 'red' }} onClick={handleDelete}>
+        <Button sx={{ color: 'red' }} onClick={() => handleDelete(data._id)}>
           <DeleteForever />
         </Button>
       </FlexBetween>
       {showAnswer && (
         <>
-          <Box fullWidth>{data.answer}</Box>
-          <Divider />
+          <Box fullWidth>
+            {/* <MarkdownComponent markdownContent={data.answer}/> */}
+            {data.answer}
+          </Box>
         </>
       )}
     </>

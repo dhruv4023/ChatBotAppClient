@@ -14,20 +14,19 @@ const ChatButtonsWidget = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const token = useSelector(s => s.token)
-  const [chats, setChatsData] = useState()
+  const [chats, setChatsData] = useState(useSelector(s => s.chats))
   const [page, setPage] = useState(1)
   useEffect(() => {
     !chats &&
       fetchAllChatsData({ token, page }).then(d => {
-        console.log(d)
-        if (false===d.success) setChatsData(d.success)
+        if (false === d.success) setChatsData(d.success)
         else {
           setChatsData(d)
-          dispatch(setChats({ chats: d.page_data }))
+          dispatch(setChats({ chats: d }))
         }
       })
   }, [chats])
-  console.log(chats)
+
   return (
     <WidgetWrapper>
       <MyTitle

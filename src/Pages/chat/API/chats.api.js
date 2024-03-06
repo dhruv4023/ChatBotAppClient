@@ -1,4 +1,4 @@
-import { getDataFromResponse } from "../../../state/globalFunctions";
+import { appendData, getDataFromResponse } from "../../../state/globalFunctions";
 
 export const fetchOneChatData = async ({ token, collectionName }) => {
     try {
@@ -15,5 +15,30 @@ export const fetchOneChatData = async ({ token, collectionName }) => {
     } catch (error) {
         console.error(error);
         throw new Error("Failed to fetch data.");
+    }
+};
+
+export const createTmpChain = async ({ token, values }) => {
+
+    const formData = new FormData();
+   
+    // Append files to FormData
+    values.files.forEach((file, index) => {
+        formData.append("files", file);
+    });
+
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            "Authorization": token
+        },
+        body: formData,
+    };
+
+    try {
+        const response = await fetch(`${process.env.REACT_APP_REST_API}/chat/bot/create/tmp/chain`, requestOptions);
+        return await getDataFromResponse(response);
+    } catch (error) {
+        console.error(error);
     }
 };

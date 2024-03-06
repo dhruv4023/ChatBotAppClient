@@ -7,7 +7,6 @@ import {
   Typography,
   useTheme
 } from '@mui/material'
-import { setLogin } from '../../state'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Dropzone from 'react-dropzone'

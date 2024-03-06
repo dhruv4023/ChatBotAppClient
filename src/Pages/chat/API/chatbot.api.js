@@ -14,7 +14,7 @@ export const sendQuetion = async ({ question, token, collectionName }) => {
             }),
         };
 
-        const response = await fetch(`${process.env.REACT_APP_REST_API}/chat/bot/query/ask`, requestOptions);
+        const response = await fetch(`${process.env.REACT_APP_REST_API}/chat/bot/ask/question`, requestOptions);
         return await getDataFromResponse(response);
     } catch (error) {
         alert("Internal Server Connection error! Please try again later! Sorry for inconvenience")

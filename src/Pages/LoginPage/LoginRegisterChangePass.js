@@ -1,5 +1,5 @@
 // Import the 'setLogin' function from the 'state' module
-import { getDataFromResponse } from "../../state/globalFunctions";
+import { appendData, getDataFromResponse } from "../../state/globalFunctions";
 import { setLogin } from "../../state/index";
 
 // Function to register a user
@@ -129,25 +129,4 @@ export const updateProfile = async (values, dispatch, token, navigate) => {
   }
 };
 
-/**
- * Recursively appends data to a FormData object.
- * @param {FormData} formData - The FormData object to append data to.
- * @param {object} object - The data object to append.
- * @param {string} parentKey - The parent key (used for nested objects).
- */
-function appendData(formData, object, parentKey) {
-  for (const key in object) {
-    if (object.hasOwnProperty(key)) {
-      const currentKey = parentKey ? `${parentKey}.${key}` : key;
 
-      // Check if the value is an object and not an instance of File.
-      if (typeof object[key] === "object" && !(object[key] instanceof File)) {
-        // Recursively append nested object data.
-        appendData(formData, object[key], currentKey);
-      } else {
-        // Append the current key-value pair to the FormData object.
-        formData.append(currentKey, object[key]);
-      }
-    }
-  }
-}

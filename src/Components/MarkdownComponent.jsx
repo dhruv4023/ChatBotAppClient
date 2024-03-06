@@ -1,6 +1,6 @@
-import React from 'react';
-import Markdown from 'markdown-to-jsx';
-import { Typography } from '@mui/material';
+import React from 'react'
+import Markdown from 'markdown-to-jsx'
+import { Typography } from '@mui/material'
 
 const MarkdownComponent = ({ markdownContent }) => {
   return (
@@ -12,7 +12,7 @@ const MarkdownComponent = ({ markdownContent }) => {
               component: Typography,
               props: {
                 variant: 'h1',
-                style: { fontFamily: 'Arial, sans-serif' } // Change font family here
+                style: { fontFamily: 'Arial' } // Change font family here
               }
             }
           }
@@ -24,4 +24,4 @@ const MarkdownComponent = ({ markdownContent }) => {
   )
 }
 
-export default MarkdownComponent;
+export default MarkdownComponent

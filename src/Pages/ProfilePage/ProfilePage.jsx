@@ -17,13 +17,15 @@ export const ProfilePage = () => {
   const [user, setUser] = useState(null)
   // Use the useEffect hook to fetch user data based on the UID parameter
   useEffect(() => {
-    UID &&
-      !user &&
-      getUser(UID).then(data => {
-        data ? setUser(data) : navigate('/404', { state: 'Profile Not Found' })
-      })
+    UID === admin.username
+      ? setUser(admin)
+      : getUser(UID).then(data => {
+          data.user
+            ? setUser(data.user)
+            : navigate('/404', { state: 'Profile Not Found' })
+        })
   }, [UID])
-
+  console.log(user)
   return (
     <>
       {user ? (
@@ -32,15 +34,12 @@ export const ProfilePage = () => {
             leftComponent={
               <LeftComponents
                 user={user}
-                UID={UID}
-                admin={admin}
+                admin={UID === admin.username}
                 setEditProf={setEditProf}
               />
             }
             rightComponent={
               <RightComponents
-                UID={UID}
-                admin={admin}
                 user={user}
                 editProf={editProf}
                 setEditProf={setEditProf}
@@ -55,25 +54,19 @@ export const ProfilePage = () => {
   )
 }
 
-const LeftComponents = ({ setEditProf, UID, admin, user }) => {
+const LeftComponents = ({ setEditProf, user, admin }) => {
   return (
     <>
       {user ? (
-        // Render UserWidgets component with specific props
-        <UserWidgets
-          setEditProf={setEditProf}
-          user={admin?.username === UID ? admin : user}
-          admin={admin?.username === UID}
-        />
+        <UserWidgets setEditProf={setEditProf} user={user} admin={admin} />
       ) : (
-        // Render Loading component while user data is being fetched
         <Loading />
       )}
     </>
   )
 }
 
-const RightComponents = ({ user, editProf, setEditProf, UID, admin }) => {
+const RightComponents = ({ user, editProf, setEditProf }) => {
   // const [refreshPage, setRefreshPage] = useState(true)
   return (
     <>
@@ -83,9 +76,7 @@ const RightComponents = ({ user, editProf, setEditProf, UID, admin }) => {
           {/* Render EditProfileWidget component with specific props */}
         </>
       ) : (
-        <>
-     
-        </>
+        <></>
       )}
     </>
   )

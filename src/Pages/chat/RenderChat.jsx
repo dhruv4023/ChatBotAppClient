@@ -11,12 +11,12 @@ const RenderChat = () => {
   const chats = useSelector(s => s.chats)
   const token = useSelector(s => s.token)
   const [chatsData, setChatsData] = useState(
-    chats?.filter(f => f.collectionName === collectionName)[0]
+    chats?.page_data?.filter(f => f.collectionName === collectionName)[0]
   )
   useEffect(() => {
     !chats &&
       fetchOneChatData({ token, collectionName }).then(d => {
-        if (false===d.success) alert(d.message)
+        if (false === d.success) alert(d.message)
         else {
           setChatsData(d)
         }
