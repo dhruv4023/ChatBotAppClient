@@ -1,4 +1,4 @@
-import { getDataFromResponse } from "../../../state/globalFunctions";
+ 
 
 export const getChatHistory = async ({ page, limit, token }) => {
     const url = `${process.env.REACT_APP_REST_API}/chat/history?page=${page}&limit=${limit}`;
@@ -16,7 +16,7 @@ export const getChatHistory = async ({ page, limit, token }) => {
         if (!response.ok) {
             throw new Error("Failed to fetch chat history"); // Throw an error for non-successful response
         }
-        return await getDataFromResponse(response);
+        return await response.json();
     } catch (error) {
         console.error("Error fetching chat history:", error); // Log the error for debugging
         alert("Internal Server Connection error! Please try again later! Sorry for inconvenience");
@@ -39,7 +39,7 @@ export const deleteQuestion = async ({ token, questionId }) => {
         if (!response.ok) {
             throw new Error("Failed to delete question"); // Throw an error for non-successful response
         }
-        return await getDataFromResponse(response);
+        return await response.json();
 
     } catch (error) {
         console.error("Error deleting question:", error); // Log the error for debugging

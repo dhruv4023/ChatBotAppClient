@@ -18,8 +18,9 @@ const HistoryWidget = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const data = await getChatHistory({ page, limit: 5, token })
-        setHistory(data)
+        const response = await getChatHistory({ page, limit: 5, token })
+        if (response.success) setHistory(response.data)
+        else setHistory(response)
       } catch (error) {
         console.error('Error fetching chat history:', error)
       }

@@ -1,4 +1,4 @@
-import { getDataFromResponse } from "../../../state/globalFunctions";
+
 
 export const sendQuestion = async ({ question, token, collectionName }) => {
     try {
@@ -18,7 +18,7 @@ export const sendQuestion = async ({ question, token, collectionName }) => {
         if (!response.ok) {
             throw new Error("Failed to fetch"); // Throw an error for non-successful response
         }
-        return await getDataFromResponse(response);
+        return await response.json();
     } catch (error) {
         console.error("Error sending question:", error); // Log the error for debugging
         alert("Internal Server Connection error! Please try again later! Sorry for inconvenience");

@@ -17,14 +17,25 @@ const ProfilePage = () => {
   const [user, setUser] = useState(null)
   // Use the useEffect hook to fetch user data based on the UID parameter
   useEffect(() => {
-    UID === admin.username
-      ? setUser(admin)
-      : getUser(UID).then(data => {
-          data.user
+    const fetchData = async () => {
+      if (UID === admin.username) {
+        setUser(admin)
+      } else {
+        try {
+          const { success, data } = await getUser(UID)
+          success
             ? setUser(data.user)
             : navigate('/404', { state: 'Profile Not Found' })
-        })
+        } catch (error) {
+          console.error('Error fetching user data:', error)
+          // Handle error, maybe set a default state or show an error message
+        }
+      }
+    }
+
+    fetchData()
   }, [UID])
+
   // console.log(user)
   return (
     <>

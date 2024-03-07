@@ -1,5 +1,5 @@
 // Import the 'setLogin' function from the 'state' module
-import { appendData, getDataFromResponse } from "../../state/globalFunctions";
+import { appendData,   } from "../../state/globalFunctions";
 import { setLogin } from "../../state/index";
 
 // Function to register a user
@@ -24,7 +24,7 @@ export const register = async (values) => {
         body: formData,
       }
     );
-    return await getDataFromResponse(response);
+    return await response.json();
   } catch (error) {
     throw Error("Error while register")
   }
@@ -74,7 +74,7 @@ export const login = async ({ values, dispatch, navigate }) => {
 //       body: JSON.stringify(values),
 //     }
 //   );
-//   return await getDataFromResponse(response);
+//   return await response.json();
 // };
 
 // Function to get user names
@@ -87,7 +87,7 @@ export const getUserNames = async () => {
         headers: { "Content-Type": "application/json" },
       }
     );
-    return await getDataFromResponse(response);
+    return await response.json();
 
   } catch (error) {
     throw Error("Error retriving usernames")

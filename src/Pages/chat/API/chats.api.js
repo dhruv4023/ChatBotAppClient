@@ -1,4 +1,4 @@
-import { getDataFromResponse } from "../../../state/globalFunctions";
+ 
 
 export const fetchOneChatData = async ({ token, collectionName }) => {
     try {
@@ -14,7 +14,7 @@ export const fetchOneChatData = async ({ token, collectionName }) => {
         if (!response.ok) {
             throw new Error("Failed to fetch chat data"); // Throw an error for non-successful response
         }
-        return await getDataFromResponse(response);
+        return await response.json();
     } catch (error) {
         console.error("Error fetching chat data:", error); // Log the error for debugging
         throw new Error("Failed to fetch data.");
@@ -42,7 +42,7 @@ export const createTmpChain = async ({ token, values }) => {
         if (!response.ok) {
             throw new Error("Failed to create temporary chain"); // Throw an error for non-successful response
         }
-        return await getDataFromResponse(response);
+        return await response.json();
     } catch (error) {
         console.error("Error creating temporary chain:", error); // Log the error for debugging
         throw error; // Re-throw the error to handle it in the calling code

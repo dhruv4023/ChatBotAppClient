@@ -22,10 +22,10 @@ const ChatButtonsWidget = () => {
     const fetchData = async () => {
       try {
         if (token && !chats) {
-          const data = await fetchAllChatsData({ token, page })
-          if (data.success) {
-            setChatsData(data)
-            dispatch(setChats({ chats: data }))
+          const response = await fetchAllChatsData({ token, page })
+          if (response.success) {
+            setChatsData(response.data)
+            dispatch(setChats({ chats: response.data }))
           } else {
             setChatsData(false)
           }
@@ -37,7 +37,7 @@ const ChatButtonsWidget = () => {
     }
     fetchData()
   }, [chats, dispatch, page, token])
-
+  console.log(chats)
   return (
     <WidgetWrapper>
       <MyTitle
