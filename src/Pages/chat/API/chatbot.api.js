@@ -1,5 +1,3 @@
-
-
 export const sendQuestion = async ({ question, token, collectionName }) => {
     try {
         const requestOptions = {
