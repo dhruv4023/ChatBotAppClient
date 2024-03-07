@@ -13,9 +13,6 @@ export const sendQuestion = async ({ question, token, collectionName }) => {
         };
 
         const response = await fetch(`${process.env.REACT_APP_REST_API}/chat/bot/ask/question`, requestOptions);
-        if (!response.ok) {
-            throw new Error("Failed to fetch"); // Throw an error for non-successful response
-        }
         return await response.json();
     } catch (error) {
         console.error("Error sending question:", error); // Log the error for debugging

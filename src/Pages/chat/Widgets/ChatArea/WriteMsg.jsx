@@ -29,8 +29,8 @@ const WriteMsg = ({
         token,
         collectionName
       })
-      
-      msgList.push({ answer: String(response.data) })
+
+      msgList.push({ answer: String(response.data || response.message) })
       const endTime = performance.now()
       const elapsedTime = (endTime - startTime) / 1000
       msgList.push({ answer: `Taken: ${elapsedTime.toFixed(2)} seconds` })
