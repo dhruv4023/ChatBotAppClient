@@ -29,7 +29,7 @@ const WriteMsg = ({
         token,
         collectionName
       })
-
+      console.log(response)
       msgList.push({ answer: String(response.data || response.message) })
       const endTime = performance.now()
       const elapsedTime = (endTime - startTime) / 1000

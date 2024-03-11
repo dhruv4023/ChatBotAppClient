@@ -7,12 +7,13 @@ export const sendQuestion = async ({ question, token, collectionName }) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                question,
-                collectionName // Corrected syntax
+                query: question,
+                chain_name: collectionName // Corrected syntax
             }),
         };
 
-        const response = await fetch(`${process.env.REACT_APP_REST_API}/chat/bot/ask/question`, requestOptions);
+        const response = await fetch(`https://dhruv4023-llmproject.hf.space/ask`, requestOptions);
+        // const response = await fetch(`${process.env.REACT_APP_REST_API}/chat/bot/ask/question`, requestOptions);
         return await response.json();
     } catch (error) {
         console.error("Error sending question:", error); // Log the error for debugging
