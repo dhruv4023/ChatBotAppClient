@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Divider, Typography } from '@mui/material'
 import React from 'react'
 import FlexBetween from '../../../../Components/FlexBetween'
 import { useTheme } from '@emotion/react'
@@ -46,8 +46,15 @@ const MessageContent = ({ msg, style }) => {
       margin={'0.2rem'}
       maxWidth={'70%'}
     >
-      {/* <MarkdownComponent markdownContent={msg}/> */}
-      {msg}
+      {String(msg)
+        .split('\n')
+        .map((m, i) => {
+          return (
+            <>
+              <p>{m}</p>
+            </>
+          )
+        })}
     </Typography>
   )
 }

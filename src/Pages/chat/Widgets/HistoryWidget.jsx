@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import { Box, Button, Divider } from '@mui/material'
 import Loading from '../../../Components/Loading/Loading'
 import Pagination from '../../../Components/Pagination'
-// import MarkdownComponent from '../../../Components/MarkdownComponent'; // MarkdownComponent seems unused
+import MarkdownComponent from '../../../Components/MarkdownComponent' // MarkdownComponent seems unused
 
 const HistoryWidget = () => {
   const token = useSelector(state => state.token)
@@ -88,6 +88,7 @@ const QA = ({ data, handleDelete }) => {
   const [showAnswer, setShowAnswer] = useState(false)
 
   const toggleAnswer = () => setShowAnswer(prevShowAnswer => !prevShowAnswer)
+  console.log(String(data.answer).split(/(\n)/));
 
   return (
     <>
@@ -104,7 +105,15 @@ const QA = ({ data, handleDelete }) => {
         <>
           <Box width={'100%'}>
             {/* <MarkdownComponent markdownContent={data.answer}/> */}
-            {data.answer}
+            {String(data.answer)
+              .split('\n')
+              .map((m, i) => {
+                return (
+                  <>
+                    <p>{m}</p>
+                  </>
+                )
+              })}
           </Box>
         </>
       )}

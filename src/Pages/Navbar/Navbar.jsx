@@ -35,7 +35,7 @@ export const Navbar = () => {
             }
           }}
         >
-          LLM Chat App
+          LLM Chat Hub
         </Typography>
         {isNonMobileScreens ? (
           <>

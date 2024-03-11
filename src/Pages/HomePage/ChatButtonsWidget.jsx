@@ -17,22 +17,25 @@ const ChatButtonsWidget = () => {
   const token = useSelector(state => state.token)
   const [chats, setChatsData] = useState(useSelector(state => state.chats))
   const [page, setPage] = useState(1)
-
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true)
         if (token && !chats) {
           const response = await fetchAllChatsData({ token, page })
           if (response.success) {
             setChatsData(response.data)
             dispatch(setChats({ chats: response.data }))
           } else {
-            setChatsData(false)
+            setChatsData(null)
           }
         }
       } catch (error) {
         console.error('Error fetching chat data:', error)
-        setChatsData(false)
+        setChatsData(null)
+      } finally {
+        setLoading(false)
       }
     }
     fetchData()
@@ -64,7 +67,7 @@ const ChatButtonsWidget = () => {
               </Button>
             ))}
           </>
-        ) : chats === false ? (
+        ) : !loading ? (
           <MyLogin txt={'Login to access chats'} />
         ) : (
           <Loading />

@@ -28,7 +28,7 @@ const RightBarContent = () => {
         color: palette.primary.dark
       }}
     >
-      Welcome to LLM Chat App, where knowledge meets convenience. Seamlessly
+      Welcome to LLM Chat Hub, where knowledge meets convenience. Seamlessly
       interact with your uploaded PDFs by posing questions directly to them.
       Additionally, explore our curated selection of pre-configured chats
       conveniently accessible through the button on the left sidebar. Initiate a
