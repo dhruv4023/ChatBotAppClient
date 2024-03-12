@@ -14,16 +14,18 @@ import MyLogin from '../../Components/MyCompoenents/MyLogin'
 const ChatButtonsWidget = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
   const token = useSelector(state => state.token)
+
   const [chats, setChatsData] = useState(useSelector(state => state.chats))
-  const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true)
         if (token && !chats) {
-          const response = await fetchAllChatsData({ token, page })
+          const response = await fetchAllChatsData({ token, page: 1 })
           if (response.success) {
             setChatsData(response.data)
             dispatch(setChats({ chats: response.data }))
@@ -39,8 +41,8 @@ const ChatButtonsWidget = () => {
       }
     }
     fetchData()
-  }, [chats, dispatch, page, token])
-  console.log(chats)
+  }, [chats, dispatch, token])
+
   return (
     <WidgetWrapper>
       <MyTitle

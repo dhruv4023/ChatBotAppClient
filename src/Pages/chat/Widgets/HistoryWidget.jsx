@@ -8,12 +8,13 @@ import { useSelector } from 'react-redux'
 import { Box, Button, Divider } from '@mui/material'
 import Loading from '../../../Components/Loading/Loading'
 import Pagination from '../../../Components/Pagination'
-import MarkdownComponent from '../../../Components/MarkdownComponent' // MarkdownComponent seems unused
+import { MessageContent } from './ChatArea/Messages'
 
 const HistoryWidget = () => {
   const token = useSelector(state => state.token)
   const [historyData, setHistory] = useState(null)
   const [page, setPage] = useState(1)
+  const [selectedQuestion, setSelectedQuestion] = useState(null)
 
   useEffect(() => {
     const fetchHistory = async () => {
@@ -41,6 +42,12 @@ const HistoryWidget = () => {
     } catch (error) {
       console.error('Error deleting question:', error)
     }
+  }
+
+  const toggleAnswer = questionId => {
+    setSelectedQuestion(prevSelectedQuestion =>
+      prevSelectedQuestion === questionId ? null : questionId
+    )
   }
 
   return (
@@ -72,6 +79,8 @@ const HistoryWidget = () => {
                   key={question._id}
                   data={question}
                   handleDelete={handleDelete}
+                  showAnswer={selectedQuestion === question._id}
+                  toggleAnswer={() => toggleAnswer(question._id)}
                 />
               ))
             )
@@ -84,12 +93,7 @@ const HistoryWidget = () => {
   )
 }
 
-const QA = ({ data, handleDelete }) => {
-  const [showAnswer, setShowAnswer] = useState(false)
-
-  const toggleAnswer = () => setShowAnswer(prevShowAnswer => !prevShowAnswer)
-  console.log(String(data.answer).split(/(\n)/));
-
+const QA = ({ data, handleDelete, showAnswer, toggleAnswer }) => {
   return (
     <>
       <Divider />
@@ -102,20 +106,7 @@ const QA = ({ data, handleDelete }) => {
         </Button>
       </FlexBetween>
       {showAnswer && (
-        <>
-          <Box width={'100%'}>
-            {/* <MarkdownComponent markdownContent={data.answer}/> */}
-            {String(data.answer)
-              .split('\n')
-              .map((m, i) => {
-                return (
-                  <>
-                    <p>{m}</p>
-                  </>
-                )
-              })}
-          </Box>
-        </>
+        <MessageContent msg={data.answer} style={{}} maxWidth={'100%'} />
       )}
     </>
   )
