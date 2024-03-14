@@ -2,6 +2,7 @@ import Form from './Form'
 import React from 'react'
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
+import ForgotPassword from './ForgotPassword'
 
 const LoginPage = () => {
   const navigate = useNavigate()
@@ -33,8 +34,8 @@ const LoginPage = () => {
           <Form pgType={'Login'} />
         ) : page === 'changepass' ? (
           // Display the ChangePass component if 'page' is 'changepass'.
-          // <ChangePass />
-          navigate('/404', { state: 'Not implemented' })
+          // navigate('/404', { state: 'Not implemented' })
+          <ForgotPassword />
         ) : (
           navigate('/404', { state: null })
         )}

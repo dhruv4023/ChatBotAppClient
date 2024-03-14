@@ -4,11 +4,15 @@ export const sendQuestion = async ({ question, token, collectionName }) => {
             method: "POST",
             headers: {
                 "Authorization": token,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Access-Control-Request-Headers": "content-type",
+                "Access-Control-Request-Method": "POST"
             },
             body: JSON.stringify({
+                // question,
+                // collectionName
                 query: question,
-                chain_name: collectionName // Corrected syntax
+                chain_name: collectionName
             }),
         };
 

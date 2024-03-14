@@ -169,7 +169,7 @@ const Form = ({ pgType, editProfile, user }) => {
               : 'Already have an account? Login here.'}
           </Typography>
         )}{' '}
-        {/* {isLogin && (
+        {isLogin && (
           <Typography
             onClick={() => {
               navigate('/auth/changepass', { state: { page: 'enteremail' } })
@@ -185,7 +185,7 @@ const Form = ({ pgType, editProfile, user }) => {
           >
             Forgot Password ?
           </Typography>
-        )} */}
+        )}
       </Box>
     </form>
   )

@@ -1,5 +1,5 @@
 // Import the 'setLogin' function from the 'state' module
-import { appendData,   } from "../../state/globalFunctions";
+import { appendData, } from "../../state/globalFunctions";
 import { setLogin } from "../../state/index";
 
 // Function to register a user
@@ -53,7 +53,8 @@ export const login = async ({ values, dispatch, navigate }) => {
           token: loggedIn.data.token,
         })
       );
-      navigate(`/profile/${loggedIn.data.user.username}`);
+      // navigate(`/profile/${loggedIn.data.user.username}`);
+      navigate(`/`);
     } else {
       alert(loggedIn.message);
     }
@@ -64,18 +65,31 @@ export const login = async ({ values, dispatch, navigate }) => {
   }
 };
 
-// Function to change a user's password
-// export const changePass = async (values) => {
-//   const response = await fetch(
-//     `${process.env.REACT_APP_REST_API}/auth/changepass`,
-//     {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(values),
-//     }
-//   );
-//   return await response.json();
-// };
+export const changePasswordRequest = async ({ email, password, otp }) => {
+  try {
+    const raw = JSON.stringify({
+      "email": email,
+      "password": password,
+      "otp": otp
+    });
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: raw,
+      redirect: "follow"
+    };
+
+    const response = await fetch(`${process.env.REACT_APP_REST_API}/auth/auth/change/password`, requestOptions);
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to make the change password request");
+  }
+};
+
 
 // Function to get user names
 export const getUserNames = async () => {
@@ -130,3 +144,25 @@ export const updateProfile = async (values, dispatch, token, navigate) => {
 };
 
 
+export const sendOTPRequest = async (email) => {
+  try {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({ "email": email });
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+    };
+
+    const response = await fetch(`${process.env.REACT_APP_REST_API}/auth/mail/send-otp`, requestOptions);
+
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to send OTP");
+  }
+};
