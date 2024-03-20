@@ -8,12 +8,7 @@ const ChatBox = ({ collectionName, sampleQ }) => {
   const msgContainerRef = useRef(null)
   const [loading, setLoading] = useState(false)
   const [msgList, setMessages] = useState([
-    {
-      answer:
-        `Greetings! 🌐 I'm your Chat Bot.\n here are some sample quetions you can ask!\n\n-> `.concat(
-          sampleQ.join('\n\n-> ')
-        )
-    }
+    { answer: `Greetings! 🌐 I'm your Chat Bot.` }
   ])
 
   useEffect(() => {
@@ -52,6 +47,7 @@ const ChatBox = ({ collectionName, sampleQ }) => {
           collectionName={collectionName}
           setMessages={setMessages}
           msgList={msgList}
+          sampleQ={sampleQ}
         />
       </FlexBetween>
     </WidgetWrapper>

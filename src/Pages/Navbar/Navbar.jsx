@@ -17,12 +17,12 @@ export const Navbar = () => {
   const navigate = useNavigate()
   const theme = useTheme()
   const background = theme.palette.background.default
-  const primaryLight = theme.palette.primary.light
+  const primaryLight = theme.palette.primary.dark
   const alt = theme.palette.background.alt
 
   return (
     <>
-      <FlexBetween width={"100%"} backgroundColor={alt} padding='1rem 6%'>
+      <FlexBetween width={'100%'} backgroundColor={alt} padding='1rem 6%'>
         <Typography
           color={'primary'}
           onClick={() => navigate('/')}

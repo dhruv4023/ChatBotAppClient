@@ -3,7 +3,7 @@ import WidgetWrapper from '../../Components/WidgetWrapper'
 import { ChatSharp } from '@mui/icons-material'
 import MyTitle from '../../Components/MyCompoenents/MyTitle'
 import FlexBetween from '../../Components/FlexBetween'
-import { Box, Button, Icon } from '@mui/material'
+import { Box } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { fetchAllChatsData } from './homepage.api'
 import { useDispatch, useSelector } from 'react-redux'
@@ -56,7 +56,7 @@ const ChatButtonsWidget = () => {
           }
         />
       </FlexEvenly>{' '}
-      <FlexEvenly flexWrap={'wrap'} padding={'0.2rem'} width={'100%'} gap={1}>
+      <FlexEvenly flexWrap={'wrap'} padding={'0.5rem'} width={'100%'} gap={1}>
         {chats ? (
           <>
             <ButtonIcon
@@ -90,13 +90,26 @@ const ButtonIcon = ({ public_id, redirect_to, txt }) => {
 
   return (
     <FlexBetween
-      sx={{ cursor: 'pointer' }}
+      sx={{
+        cursor: 'pointer',
+        position: 'relative', // Ensure positioning for hover effect
+        overflow: 'hidden', // Prevent overflow when image enlarges
+        '&:hover': {
+          color: 'primary',
+          transform: 'scale(1.1)', // Enlarge image on hover
+          transition: 'transform 0.3s ease-in-out' // Add smooth transition
+        }
+      }}
       onClick={() => navigate(redirect_to)}
       flexDirection={'column'}
       width={'13rem'}
     >
       <img
-        style={{ borderRadius: '2rem', maxWidth: '100%' }} // Ensure image doesn't exceed its container's width
+        style={{
+          borderRadius: '2rem',
+          maxWidth: '100%',
+          transition: 'transform 0.3s ease-in-out'
+        }} // Ensure smooth transition for initial state
         src={`${process.env.REACT_APP_CLOUDINARY_IMG}/${public_id}`}
         alt={txt} // Add alt text for accessibility
       />

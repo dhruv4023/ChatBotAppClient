@@ -13,9 +13,9 @@ export default function Messages ({ msgLst, loading, sampleQ }) {
           <FlexBetween>
             {m.question && <Box />}
             <MessageContent
-              msg={m.question || m.answer} // Simplified condition
+              msg={m.question || m.answer}
               style={{
-                color: m.question ? undefined : palette.primary.dark, // Set color only for answers
+                color: m.question ? undefined : palette.primary.dark,
                 background: palette.neutral.light
               }}
             />
