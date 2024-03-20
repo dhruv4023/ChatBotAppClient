@@ -1,9 +1,9 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
 import FlexBetween from '../../../../Components/FlexBetween'
 import { useTheme } from '@emotion/react'
 
-export default function Messages ({ msgLst, loading }) {
+export default function Messages ({ msgLst, loading, sampleQ }) {
   const { palette } = useTheme()
 
   return (
@@ -39,7 +39,7 @@ export default function Messages ({ msgLst, loading }) {
 export const MessageContent = ({ msg, style, maxWidth = '70%' }) => {
   return (
     <Box
-      style={style}
+      sx={style}
       borderRadius={'0.5rem'}
       padding={'0.5rem'}
       margin={'0.2rem'}

@@ -22,7 +22,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <FlexBetween backgroundColor={alt} padding='1rem 6%'>
+      <FlexBetween width={"100%"} backgroundColor={alt} padding='1rem 6%'>
         <Typography
           color={'primary'}
           onClick={() => navigate('/')}

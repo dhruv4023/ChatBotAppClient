@@ -4,11 +4,16 @@ import FlexBetween from '../../../Components/FlexBetween'
 import WriteMsg from './ChatArea/WriteMsg'
 import NewMsg from './ChatArea/NewMsg'
 
-const ChatBox = ({ collectionName }) => {
+const ChatBox = ({ collectionName, sampleQ }) => {
   const msgContainerRef = useRef(null)
   const [loading, setLoading] = useState(false)
   const [msgList, setMessages] = useState([
-    { answer: `Greetings! 🌐 I'm your Chat Bot.` }
+    {
+      answer:
+        `Greetings! 🌐 I'm your Chat Bot.\n here are some sample quetions you can ask!\n\n-> `.concat(
+          sampleQ.join('\n\n-> ')
+        )
+    }
   ])
 
   useEffect(() => {

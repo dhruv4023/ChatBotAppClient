@@ -39,7 +39,16 @@ const RenderChat = () => {
     <WidgetsOnPage
       title={chatsData?.title || ''} // Provide a fallback value for title in case chatsData is null
       leftComponent={<HistoryWidget />}
-      rightComponent={<ChatBox collectionName={collectionName} />}
+      rightComponent={
+        <>
+          {chatsData && (
+            <ChatBox
+              collectionName={collectionName}
+              sampleQ={chatsData?.sampleQuetions}
+            />
+          )}
+        </>
+      }
     />
   )
 }

@@ -1,39 +1,53 @@
 import React from 'react'
-import WidgetsOnPage from '../../Components/WidgetsOnPage'
-import { Typography } from '@mui/material'
-import { useTheme } from '@emotion/react'
+import { Box, Typography } from '@mui/material'
 import ChatButtonsWidget from './ChatButtonsWidget'
+import FlexBetween from '../../Components/FlexBetween'
+import { Navbar } from '../Navbar/Navbar'
 
 const HomePage = () => {
   return (
-    <WidgetsOnPage
-      title={'Chat with PDFs Application'}
-      leftComponent={<ChatButtonsWidget />}
-      rightComponent={<RightBarContent />}
-    />
+    <FlexBetween flexDirection={'column'}>
+      <Navbar />
+      <Box sx={{ width: '100%', padding: '2rem' }}>
+        <Content />
+      </Box>
+      <Box sx={{ width: '100%', padding: '2rem' }}>
+        <ChatButtonsWidget />
+      </Box>
+    </FlexBetween>
   )
 }
 
 export default HomePage
 
-const RightBarContent = () => {
-  const { palette } = useTheme()
-
+const Content = () => {
+  const styles = {
+    root: {
+      textAlign: 'center',
+      padding: '32px'
+    },
+    title: {
+      marginBottom: '16px'
+    },
+    description: {
+      marginBottom: '32px'
+    },
+    button: {
+      marginTop: '16px'
+    }
+  }
   return (
-    <Typography
-      sx={{
-        fontFamily: 'Arial, sans-serif',
-        fontSize: '16px',
-        lineHeight: 1.5,
-        color: palette.primary.dark
-      }}
-    >
-      Welcome to LLM Chat Hub, where knowledge meets convenience. Seamlessly
-      interact with your uploaded PDFs by posing questions directly to them.
-      Additionally, explore our curated selection of pre-configured chats
-      conveniently accessible through the button on the left sidebar. Initiate a
-      chat with a simple click and delve into your inquiries effortlessly.
-      Welcome to a smarter way of engaging with your documents.
-    </Typography>
+    <div style={styles.root}>
+      <Typography variant='h4' style={styles.title}>
+        Welcome to LLM Chat Hub!
+      </Typography>
+      <Typography variant='body1' style={styles.description}>
+        Empower your legal research with our cutting-edge chatbot platform.
+        Seamlessly interact with your legal documents, ask questions, and
+        explore curated chats. From analyzing penalty laws to discussing case
+        studies, our platform simplifies legal research like never before. Get
+        started today and discover a smarter way to engage with your documents.
+      </Typography>
+    </div>
   )
 }

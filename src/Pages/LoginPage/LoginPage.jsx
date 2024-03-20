@@ -3,6 +3,8 @@ import React from 'react'
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import ForgotPassword from './ForgotPassword'
+import MyTitle from '../../Components/MyCompoenents/MyTitle'
+import FlexEvenly from '../../Components/FlexEvenly'
 
 const LoginPage = () => {
   const navigate = useNavigate()
@@ -18,10 +20,23 @@ const LoginPage = () => {
         textAlign='center'
         backgroundColor={theme.palette.background.alt}
       >
-        <Typography fontWeight={'bold'} fontSize='32px' color={'primary'}>
-          Authentication To ChatApp
+        <Typography
+          color={'primary'}
+          onClick={() => navigate('/')}
+          fontWeight={'bold'}
+          fontSize={'clamp(1rem,1.5rem,2rem)'}
+          sx={{
+            '&:hover': {
+              cursor: 'pointer'
+            }
+          }}
+        >
+          LLM Chat Hub
         </Typography>
       </Box>
+      <FlexEvenly margin={"2rem"} width={'100%'}>
+        <MyTitle txt={'Authentication'} />
+      </FlexEvenly>
       <Box
         p='2rem'
         m={'2rem auto'}

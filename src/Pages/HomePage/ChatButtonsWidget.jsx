@@ -3,16 +3,16 @@ import WidgetWrapper from '../../Components/WidgetWrapper'
 import { ChatSharp } from '@mui/icons-material'
 import MyTitle from '../../Components/MyCompoenents/MyTitle'
 import FlexBetween from '../../Components/FlexBetween'
-import { Box, Button } from '@mui/material'
+import { Box, Button, Icon } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { fetchAllChatsData } from './homepage.api'
 import { useDispatch, useSelector } from 'react-redux'
 import Loading from '../../Components/Loading/Loading'
 import { setChats } from '../../state'
 import MyLogin from '../../Components/MyCompoenents/MyLogin'
+import FlexEvenly from '../../Components/FlexEvenly'
 
 const ChatButtonsWidget = () => {
-  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const token = useSelector(state => state.token)
@@ -44,29 +44,33 @@ const ChatButtonsWidget = () => {
   }, [chats, dispatch, token])
 
   return (
-    <WidgetWrapper>
-      <MyTitle
-        txt={
-          <FlexBetween margin={1}>
-            <ChatSharp />
-            Chats
-            <Box flexGrow={1} />
-          </FlexBetween>
-        }
-      />
-      <FlexBetween gap={1} flexDirection={'column'}>
+    <WidgetWrapper width={'100%'}>
+      <FlexEvenly>
+        <MyTitle
+          txt={
+            <FlexBetween margin={1}>
+              <ChatSharp />
+              Get Started with following Chats
+              <Box flexGrow={1} />
+            </FlexBetween>
+          }
+        />
+      </FlexEvenly>{' '}
+      <FlexEvenly flexWrap={'wrap'} padding={'0.2rem'} width={'100%'} gap={1}>
         {chats ? (
           <>
-            <Button onClick={() => navigate('/chat-with-pdf')}>
-              Chat with your PDFs
-            </Button>
+            <ButtonIcon
+              public_id={'ChatIcons/pdf_chatbot_ezkbnj'}
+              redirect_to={'/chat-with-pdf'}
+              txt={'Chat with your PDFs'}
+            />
             {chats.page_data.map(chat => (
-              <Button
+              <ButtonIcon
                 key={chat.collectionName}
-                onClick={() => navigate(`/chat/${chat.collectionName}`)}
-              >
-                {chat.title}
-              </Button>
+                public_id={chat.buttonIcon}
+                redirect_to={`/chat/${chat.collectionName}`}
+                txt={chat.title}
+              />
             ))}
           </>
         ) : !loading ? (
@@ -74,9 +78,29 @@ const ChatButtonsWidget = () => {
         ) : (
           <Loading />
         )}
-      </FlexBetween>
+      </FlexEvenly>
     </WidgetWrapper>
   )
 }
 
 export default ChatButtonsWidget
+
+const ButtonIcon = ({ public_id, redirect_to, txt }) => {
+  const navigate = useNavigate()
+
+  return (
+    <FlexBetween
+      sx={{ cursor: 'pointer' }}
+      onClick={() => navigate(redirect_to)}
+      flexDirection={'column'}
+      width={'13rem'}
+    >
+      <img
+        style={{ borderRadius: '2rem', maxWidth: '100%' }} // Ensure image doesn't exceed its container's width
+        src={`${process.env.REACT_APP_CLOUDINARY_IMG}/${public_id}`}
+        alt={txt} // Add alt text for accessibility
+      />
+      <Box>{txt}</Box>
+    </FlexBetween>
+  )
+}
