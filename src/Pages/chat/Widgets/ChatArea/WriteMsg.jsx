@@ -5,7 +5,7 @@ import MyButton from '../../../../Components/MyCompoenents/MyButton'
 import FlexBetween from '../../../../Components/FlexBetween'
 import { sendQuestion } from '../../API/chatbot.api'
 import { useTheme } from '@emotion/react'
-import { Close, CloseRounded, CloseSharp } from '@mui/icons-material'
+import { CloseSharp } from '@mui/icons-material'
 import FlexEvenly from '../../../../Components/FlexEvenly'
 
 const WriteMsg = ({
@@ -19,21 +19,21 @@ const WriteMsg = ({
   const [val, setVal] = useState('')
   const token = useSelector(state => state.token)
 
+  console.log(collectionName)
   const handleSendMess = async question => {
     setLoading(true)
-
     try {
       const startTime = performance.now()
       msgList.push({ question: question })
       setMessages([...msgList])
-
-      const response = await sendQuestion({
-        question: question,
+      // console.log('he')
+      const { data, message } = await sendQuestion({
+        question,
         token,
-        collectionName
+        collectionName: collectionName ? collectionName : null
       })
-
-      msgList.push({ answer: String(response.data || response.message) })
+      // console.log(data, message)
+      msgList.push({ answer: String(data || message) })
 
       const endTime = performance.now()
       const elapsedTime = (endTime - startTime) / 1000
@@ -50,9 +50,13 @@ const WriteMsg = ({
   const { palette } = useTheme()
   const [displaySampleQ, setDisplaySampleQ] = useState(true)
 
+  const handleSendMessOnSubmit = e => {
+    e.preventDefault()
+    handleSendMess(val)
+  }
   return (
-    <form style={{ width: '100%' }} onSubmit={() => handleSendMess(val)}>
-      {displaySampleQ && (
+    <form style={{ width: '100%' }} onSubmit={handleSendMessOnSubmit}>
+      {displaySampleQ && sampleQ && (
         <FlexBetween>
           <FlexEvenly sx={{ width: '30%' }}>
             <IconButton onClick={() => setDisplaySampleQ(false)}>

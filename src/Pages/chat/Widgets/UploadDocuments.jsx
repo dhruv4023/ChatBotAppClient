@@ -6,12 +6,14 @@ import WidgetWrapper from '../../../Components/WidgetWrapper'
 import FlexBetween from '../../../Components/FlexBetween'
 import { useTheme } from '@emotion/react'
 import { createTmpChain } from '../API/chats.api'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Loading from '../../../Components/Loading/Loading'
 import MyButton from '../../../Components/MyCompoenents/MyButton'
+import { setUploadedFiles } from '../../../state'
 
 const UploadDocuments = ({ setIsChainCreated }) => {
   const { palette } = useTheme()
+  const dispatch = useDispatch()
   const [values, setValues] = useState({
     files: []
   })
@@ -22,14 +24,21 @@ const UploadDocuments = ({ setIsChainCreated }) => {
   }
 
   const token = useSelector(state => state.token)
+  const uploadedFiles = useSelector(state => state.uploadedFiles) // Existing uploaded files
 
   const handleSubmit = async e => {
     e.preventDefault()
     setLoading(true)
 
     try {
+      const uploadedFileNames = values.files.map(file => file.name) // Extract file names
       await createTmpChain({ token, values })
       setIsChainCreated(true)
+      dispatch(
+        setUploadedFiles({
+          uploadedFiles: uploadedFileNames
+        })
+      )
     } catch (error) {
       console.error('Error uploading documents:', error)
       alert('Failed to upload documents.')
@@ -39,7 +48,7 @@ const UploadDocuments = ({ setIsChainCreated }) => {
   }
 
   return (
-    <WidgetWrapper>
+    <WidgetWrapper marginTop={'0.5rem'}>
       <form onSubmit={handleSubmit}>
         <Dropzone
           acceptedFiles='.pdf'
@@ -70,8 +79,17 @@ const UploadDocuments = ({ setIsChainCreated }) => {
             </Box>
           )}
         </Dropzone>
-        <MyButton disabled={loading} label='Start chat with these files' />
+        <MyButton disabled={loading} label='Add PDF file/s' />
       </form>
+      <FlexBetween flexDirection={'column'} gap={1}>
+        {uploadedFiles ? (
+          uploadedFiles.map(m => {
+            return <Box>{m}</Box>
+          })
+        ) : (
+          <>No files uploaded</>
+        )}
+      </FlexBetween>
       {loading && <Loading />}
     </WidgetWrapper>
   )

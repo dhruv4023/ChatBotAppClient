@@ -3,6 +3,7 @@ const initialState = {
   mode: "dark",
   user: null,
   token: null,
+  uploadedFiles: null,
   chats: null
 };
 
@@ -12,6 +13,9 @@ export const authState = createSlice({
   reducers: {
     setMode: (state) => {
       state.mode = state.mode === "light" ? "dark" : "light";
+    },
+    setUploadedFiles: (state, action) => {
+      state.uploadedFiles = action.payload.uploadedFiles;
     },
     setChats: (state, action) => {
       state.chats = action.payload.chats;
@@ -24,11 +28,13 @@ export const authState = createSlice({
       state.user = null;
       state.token = null;
       state.chats = null;
+      state.uploadedFiles = null;
     },
   },
 });
 
 export const {
+  setUploadedFiles,
   setMode,
   setLogin,
   setChats,
