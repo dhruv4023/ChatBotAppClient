@@ -87,7 +87,7 @@ const Form = ({ pgType, editProfile, user }) => {
       alert('Please select a unique username.')
     } else if (editProfile && values.email === user.email) {
       // Handle profile update
-      await updateProfile(values, dispatch, token, navigate)
+      await updateProfile({values, dispatch, token, navigate})
     } else {
       await register(values)
       navigate("/auth/login", { state: null });

@@ -109,7 +109,8 @@ export const getUserNames = async () => {
 };
 
 // Function to update a user's profile
-export const updateProfile = async (values, dispatch, token, navigate) => {
+export const updateProfile = async ({ values, dispatch, token, navigate }) => {
+  // console.log(token)
   try {
     const formData = new FormData();
     appendData(formData, values);
@@ -120,7 +121,6 @@ export const updateProfile = async (values, dispatch, token, navigate) => {
         method: "PUT",
         headers: {
           "Authorization": token,
-          "Content-Type": "application/json"
         },
         body: formData,
       }
@@ -130,7 +130,7 @@ export const updateProfile = async (values, dispatch, token, navigate) => {
       dispatch(
         setLogin({
           user: savedUser.data.user,
-          token: token,
+          token: token?.split("Bearer ")[1],
         })
       ) && navigate(`/profile/${savedUser.data.user.username}`);
       return (savedUser.message);

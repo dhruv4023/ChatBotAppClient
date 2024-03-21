@@ -1,10 +1,10 @@
 // Import necessary dependencies and components
 import { CloseRounded } from '@mui/icons-material'
-import { IconButton } from '@mui/material'
 import React from 'react'
 import FlexBetween from '../../../Components/FlexBetween'
 import WidgetWrapper from '../../../Components/WidgetWrapper'
 import Form from '../../LoginPage/Form'
+import { IconButton } from '@mui/material'
 
 // Define the EditProfileWidget component
 const EditProfileWidget = ({ user, setEditProf }) => {
@@ -24,7 +24,6 @@ const EditProfileWidget = ({ user, setEditProf }) => {
     <WidgetWrapper>
       {/* Render a close button as an IconButton */}
       <IconButton
-        size={50}
         sx={{ m: '0 0 1rem 0' }}
         onClick={() => setEditProf(false)}
       >
