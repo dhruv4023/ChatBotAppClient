@@ -34,7 +34,7 @@ const LoginPage = () => {
           LLM Chat Hub
         </Typography>
       </Box>
-      <FlexEvenly margin={"2rem"} width={'100%'}>
+      <FlexEvenly m={"2rem 0 2rem 0"} width={'100%'}>
         <MyTitle txt={'Authentication'} />
       </FlexEvenly>
       <Box

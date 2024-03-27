@@ -18,7 +18,7 @@ const ProfilePage = () => {
   // Use the useEffect hook to fetch user data based on the UID parameter
   useEffect(() => {
     const fetchData = async () => {
-      if (UID === admin.username) {
+      if (UID === admin?.username) {
         setUser(admin)
       } else {
         try {
@@ -45,7 +45,7 @@ const ProfilePage = () => {
             leftComponent={
               <LeftComponents
                 user={user}
-                admin={UID === admin.username}
+                admin={UID === admin?.username}
                 setEditProf={setEditProf}
               />
             }
