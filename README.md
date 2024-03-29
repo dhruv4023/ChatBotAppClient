@@ -1,4 +1,4 @@
-# LLM CHATHUB
+# LLM CHATHUB - Frontend
 
 ## requirements 
 ### Node must be installed
@@ -11,6 +11,11 @@
 
 - create .env file as per given .env.example file 
 
+- Clone Repository
+  ```
+  git clone https://github.com/dhruv4023/ChatBotAppClient
+  ```
+
 - install Reactjs modules
   ```
   npm install
@@ -22,4 +27,9 @@
   ```
 
 ## dependency github repository
-- https://github.com/dhruv4023/ChatBotServerNode
+- [Main Node Server](https://github.com/dhruv4023/ChatBotServerNode)
+
+## Other Repository URL for whole project
+- [Authentication Server](https://github.com/dhruv4023/AuthMicroService)
+- [Chatbot API Server](https://github.com/dhruv4023/LLM)
+
