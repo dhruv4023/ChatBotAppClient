@@ -1,4 +1,4 @@
-import { Box, IconButton, TextField } from "@mui/material";
+import { Box, Button, IconButton, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import MyButton from "../../../../Components/MyCompoenents/MyButton";
@@ -59,10 +59,7 @@ const WriteMsg = ({
       {displaySampleQ && sampleQ && (
         <FlexBetween>
           <FlexEvenly sx={{ width: "30%" }}>
-            <IconButton
-              disabled={loading}
-              onClick={() => setDisplaySampleQ(false)}
-            >
+            <IconButton onClick={() => setDisplaySampleQ(false)}>
               <CloseSharp width={"2rem"} />
             </IconButton>
           </FlexEvenly>
@@ -77,9 +74,10 @@ const WriteMsg = ({
             {sampleQ.map((q, index) => (
               <FlexBetween key={index} width={"100%"}>
                 <Box />
-                <Box
+                <Button
                   fontWeight={"700"}
                   padding={"0.3rem"}
+                  disabled={loading}
                   borderRadius={"0.3rem"}
                   onClick={() => handleSendMess(q)} // Call handleSendMess with question
                   sx={{
@@ -89,7 +87,7 @@ const WriteMsg = ({
                   }}
                 >
                   {q}
-                </Box>
+                </Button>
               </FlexBetween>
             ))}
           </FlexBetween>

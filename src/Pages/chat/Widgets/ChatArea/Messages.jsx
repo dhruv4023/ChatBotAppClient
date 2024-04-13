@@ -1,10 +1,10 @@
-import { Box, Button, Typography } from '@mui/material'
-import React from 'react'
-import FlexBetween from '../../../../Components/FlexBetween'
-import { useTheme } from '@emotion/react'
+import { Box, Typography } from "@mui/material";
+import React from "react";
+import FlexBetween from "../../../../Components/FlexBetween";
+import { useTheme } from "@emotion/react";
 
-export default function Messages ({ msgLst, loading, sampleQ }) {
-  const { palette } = useTheme()
+export default function Messages({ msgLst, loading, sampleQ }) {
+  const { palette } = useTheme();
 
   return (
     <>
@@ -16,7 +16,7 @@ export default function Messages ({ msgLst, loading, sampleQ }) {
               msg={m.question || m.answer}
               style={{
                 color: m.question ? undefined : palette.primary.dark,
-                background: palette.neutral.light
+                background: palette.neutral.light,
               }}
             />
           </FlexBetween>
@@ -25,31 +25,31 @@ export default function Messages ({ msgLst, loading, sampleQ }) {
       {loading && (
         <FlexBetween>
           <MessageContent
-            msg={'Typing...'}
+            msg={"Typing..."}
             style={{
-              background: palette.neutral.light
+              background: palette.neutral.light,
             }}
           />
         </FlexBetween>
       )}
     </>
-  )
+  );
 }
 
-export const MessageContent = ({ msg, style, maxWidth = '70%' }) => {
+export const MessageContent = ({ msg, style, maxWidth = "70%" }) => {
   return (
     <Box
       sx={style}
-      borderRadius={'0.5rem'}
-      padding={'0.5rem'}
-      margin={'0.2rem'}
+      borderRadius={"0.5rem"}
+      padding={"0.5rem"}
+      margin={"0.2rem"}
       maxWidth={maxWidth}
     >
       {String(msg)
-        .split('\n')
+        .split("\n")
         .map((m, i) => {
-          return <Typography key={i}>{m}</Typography>
+          return <Typography key={i}>{m}</Typography>;
         })}
     </Box>
-  )
-}
+  );
+};
