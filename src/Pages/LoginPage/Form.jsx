@@ -90,7 +90,7 @@ const Form = ({ pgType, editProfile, user }) => {
       await updateProfile({values, dispatch, token, navigate})
     } else {
       await register(values)
-      navigate("/auth/login", { state: null });
+      navigate("/auth/login");
     }
     setLoading(false)
   }
