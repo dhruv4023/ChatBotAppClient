@@ -19,7 +19,7 @@ const WriteMsg = ({
   const [val, setVal] = useState("");
   const token = useSelector((state) => state.token);
 
-  console.log(collectionName);
+  // console.log(collectionName);
   const handleSendMess = async (question) => {
     setLoading(true);
     try {

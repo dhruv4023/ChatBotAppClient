@@ -108,7 +108,7 @@ const Form = ({ pgType, editProfile, user }) => {
       isRegister &&
       getUserNames()
         .then(data => {
-          console.log(data)
+          // console.log(data)
           if (!data.success) {
             alert(data.message)
           } else {
