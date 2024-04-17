@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { appendData } from "../../state/globalFunctions";
+import { setLogin } from "../../state/index";
 
 // Function to register a user
 export const register = async (values) => {
