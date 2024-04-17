@@ -18,7 +18,7 @@ export const register = async (values) => {
 
     // Send a POST request to the registration endpoint on the server.
     const response = await fetch(
-      `${process.env.REACT_APP_REST_API}/auth/auth/register`,
+      `${process.env.REACT_APP_REST_API}/auth/register`,
       {
         method: "POST",
         body: formData,
@@ -36,7 +36,7 @@ export const login = async ({ values, dispatch, navigate }) => {
   try {
 
     const loggedInResponse = await fetch(
-      `${process.env.REACT_APP_REST_API}/auth/auth/login`,
+      `${process.env.REACT_APP_REST_API}/auth/login`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -82,7 +82,7 @@ export const changePasswordRequest = async ({ email, password, otp }) => {
       redirect: "follow"
     };
 
-    const response = await fetch(`${process.env.REACT_APP_REST_API}/auth/auth/change/password`, requestOptions);
+    const response = await fetch(`${process.env.REACT_APP_REST_API}/auth/change/password`, requestOptions);
     return await response.json();
   } catch (error) {
     console.error(error);
@@ -95,7 +95,7 @@ export const changePasswordRequest = async ({ email, password, otp }) => {
 export const getUserNames = async () => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_REST_API}/auth/auth/get/usernames`,
+      `${process.env.REACT_APP_REST_API}/auth/get/usernames`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -116,7 +116,7 @@ export const updateProfile = async ({ values, dispatch, token, navigate }) => {
     appendData(formData, values);
     if (values["picPath"] === "") delete values["picPath"];
     const savedUserResponse = await fetch(
-      `${process.env.REACT_APP_REST_API}/auth/user/update`,
+      `${process.env.REACT_APP_REST_API}/user/update`,
       {
         method: "PUT",
         headers: {

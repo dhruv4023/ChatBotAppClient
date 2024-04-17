@@ -9,15 +9,13 @@ export const sendQuestion = async ({ question, token, collectionName }) => {
                 "Access-Control-Request-Method": "POST"
             },
             body: JSON.stringify({
-                question,
-                collectionName
-                // query: question,
-                // chain_name: collectionName
+                collectionName,
+                query: question,
             }),
         };
 
         // const response = await fetch(`https://dhruv4023-llmproject.hf.space/ask`, requestOptions);
-        const response = await fetch(`${process.env.REACT_APP_REST_API}/chat/bot/ask/question`, requestOptions);
+        const response = await fetch(`${process.env.REACT_APP_REST_API}/chat/bot/ask-question`, requestOptions);
         // console.log(response)
         return await response.json();
     } catch (error) {

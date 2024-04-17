@@ -1,7 +1,7 @@
- 
+
 
 export const getChatHistory = async ({ page, limit, token }) => {
-    const url = `${process.env.REACT_APP_REST_API}/chat/history?page=${page}&limit=${limit}`;
+    const url = `${process.env.REACT_APP_REST_API}/chat/history/get?page=${page}&limit=${limit}`;
 
     const requestOptions = {
         method: "GET",
@@ -31,8 +31,8 @@ export const deleteQuestion = async ({ token, questionId }) => {
             },
             redirect: "follow"
         };
-
-        const response = await fetch(`${process.env.REACT_APP_REST_API}/chat/history/question/${questionId}`, requestOptions);
+        console.log(questionId)
+        const response = await fetch(`${process.env.REACT_APP_REST_API}/chat/history/delete/question/${questionId}`, requestOptions);
         if (!response.ok) {
             throw new Error("Failed to delete question"); // Throw an error for non-successful response
         }

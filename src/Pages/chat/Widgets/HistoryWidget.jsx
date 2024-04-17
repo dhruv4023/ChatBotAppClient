@@ -49,7 +49,7 @@ const HistoryWidget = () => {
       prevSelectedQuestion === questionId ? null : questionId
     )
   }
-
+console.log(historyData)
   return (
     <WidgetWrapper>
       <FlexBetween flexDirection='column'>
