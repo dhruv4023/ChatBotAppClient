@@ -39,7 +39,7 @@ export const login = async ({ values, dispatch, navigate }) => {
 
     const loggedInResponse = await fetch(
       "https://dhruv4023-chatbotapi.hf.space/api/auth/login/",
-      `${process.env.REACT_APP_REST_API}/auth/login`,
+      // `${process.env.REACT_APP_REST_API}/auth/login`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
