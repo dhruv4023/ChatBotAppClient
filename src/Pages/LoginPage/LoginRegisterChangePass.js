@@ -99,7 +99,7 @@ export const updateProfile = async ({ values, dispatch, token, navigate }) => {
 
 export const sendOTPRequest = async (email) => {
   try {
-    const response = await axios.post(`${process.env.REACT_APP_REST_API}/auth/mail/send-otp`, { email });
+    const response = await axios.post(`${process.env.REACT_APP_REST_API}/mail/send-otp`, { email });
     return response.data;
   } catch (error) {
     console.error(error);
