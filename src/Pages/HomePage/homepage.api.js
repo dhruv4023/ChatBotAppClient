@@ -11,7 +11,6 @@ export const fetchAllChatsData = async ({ token, page = 1, limit = 10 }) => {
             },
             redirect: "follow"
         };
-
         const response = await fetch(`${process.env.REACT_APP_REST_API}/chat/get?page=${page}&limit=${limit}`, requestOptions);
         return await response.json();
     } catch (error) {

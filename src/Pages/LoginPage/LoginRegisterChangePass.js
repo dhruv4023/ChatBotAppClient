@@ -20,25 +20,27 @@ export const register = async (values) => {
 // Function to log in a user
 export const login = async ({ values, dispatch, navigate }) => {
   try {
+
     const loggedInResponse = await axios.post(
-      // `${process.env.REACT_APP_REST_API}/auth/login`,
-      "https://dhruv4023-chatbotapi.hf.space/api/auth/login/",
+      `${process.env.REACT_APP_REST_API}/auth/login`,
+      // "https://dhruv4023-chatbotapi.hf.space/api/auth/login/",
       values, {
       headers: { "Content-Type": "application/json" }
     });
+
     const loggedIn = loggedInResponse.data;
-    if (loggedIn.success) {
-      dispatch(setLogin({
-        user: loggedIn.data.user,
-        token: loggedIn.data.token,
-      }));
-      navigate(`/`);
-    } else {
-      alert(loggedIn.message);
-    }
+    dispatch(setLogin({
+      user: loggedIn.data.user,
+      token: loggedIn.data.token,
+    }));
+    navigate(`/`);
+
   } catch (error) {
-    console.error(error);
-    // throw new Error("Error logging in user");
+    if (error.response) {
+      alert("Error logging in: " + error.response.data.message);
+    } else {
+      alert("Error logging in user: " + error.message);
+    }
   }
 };
 
@@ -106,3 +108,20 @@ export const sendOTPRequest = async (email) => {
     throw new Error("Failed to send OTP");
   }
 };
+
+export const logout = async () => {
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_REST_API}/auth/logout/`, { withCredentials: true });
+    alert(response.data.message);
+  } catch (error) {
+    console.error(error);
+    throw new Error("Internal server error:" + error);
+  }
+}
+
+export const getSession = async () => {
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_REST_API}/auth/get/session/`, { withCredentials: true });
+    console.log(response);
+  } catch (error) { }
+}
