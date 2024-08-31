@@ -119,9 +119,11 @@ export const logout = async () => {
   }
 }
 
-export const getSession = async () => {
+export const getSession = () => async (dispatch) => {
   try {
     const response = await axios.get(`${process.env.REACT_APP_REST_API}/auth/get/session/`, { withCredentials: true });
-    console.log(response);
-  } catch (error) { }
+    dispatch(setLogin({ ...response.data.data }));
+  } catch (error) {
+    console.log(error);
+  }
 }

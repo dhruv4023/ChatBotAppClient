@@ -65,7 +65,7 @@ const LoginPage = () => {
         alignItems="center"
         justifyContent="center"
       >
-        {/* <Link
+        <Link
           href={`${
             process.env.REACT_APP_REST_API
           }/auth/login/google/?baseurl=${encodeURIComponent(
@@ -82,7 +82,7 @@ const LoginPage = () => {
         >
           <Google style={{ marginRight: "0.5rem" }} />
           Login with Google
-        </Link> */}
+        </Link>
       </Box>
     </Box>
   );
