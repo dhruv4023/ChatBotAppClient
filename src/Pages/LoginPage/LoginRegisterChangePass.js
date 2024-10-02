@@ -124,6 +124,6 @@ export const getSession = () => async (dispatch) => {
     const response = await axios.get(`${process.env.REACT_APP_REST_API}/auth/get/session/`, { withCredentials: true });
     dispatch(setLogin({ ...response.data.data }));
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 }

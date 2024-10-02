@@ -6,14 +6,14 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme"; // Import theme settings
 import { AllRoutes } from "./Components/AllRoutes";
-import { getSession } from "./Pages/LoginPage/LoginRegisterChangePass";
+// import { getSession } from "./Pages/LoginPage/LoginRegisterChangePass";
 
 const App = () => {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const mode = useSelector((state) => state.mode);
-  useEffect(() => {
-    dispatch(getSession())
-  }, [dispatch])
+  // useEffect(() => {
+    // dispatch(getSession())
+  // }, [dispatch])
 
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
 

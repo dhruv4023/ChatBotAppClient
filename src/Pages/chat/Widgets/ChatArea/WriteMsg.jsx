@@ -32,7 +32,7 @@ const WriteMsg = ({
         token,
         collectionName: collectionName ? collectionName : null,
       });
-      // console.log(data, message)
+
       msgList.push({ answer: String(data || message) });
 
       const endTime = performance.now();
@@ -40,8 +40,8 @@ const WriteMsg = ({
       msgList.push({ answer: `Taken: ${elapsedTime.toFixed(2)} seconds` });
       setMessages(msgList);
     } catch (error) {
-      console.error("Error sending question:", error);
-      alert("Failed to send question.");
+      msgList.push({ answer: "Retry to send message !" });
+      setMessages(msgList);
     } finally {
       setLoading(false);
     }

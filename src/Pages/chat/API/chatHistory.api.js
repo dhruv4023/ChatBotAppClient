@@ -31,7 +31,7 @@ export const deleteQuestion = async ({ token, questionId }) => {
             },
             redirect: "follow"
         };
-        console.log(questionId)
+        // console.log(questionId)
         const response = await fetch(`${process.env.REACT_APP_REST_API}/chat/history/delete/question/${questionId}`, requestOptions);
         if (!response.ok) {
             throw new Error("Failed to delete question"); // Throw an error for non-successful response
